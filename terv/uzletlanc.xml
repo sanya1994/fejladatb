@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uzletlanc>
+    <uzlethelysegek>
+        <orszag name="Magyaroszág">
+            <varos name="Városname" iranyitoszam="2135">
+                <kozter name="" jelleg="">
+                    <uzletag id="uzletagid" kozponte="" hazszam=""></uzletag>
+                </kozter>
+            </varos>
+        </orszag>
+    </uzlethelysegek>
+    <munkakorok>
+        <munkakorkategoria nev="">
+            <munkakor id="" nev="">
+                    <leiras></leiras>
+                    <varhato_fizetes></varhato_fizetes>
+            </munkakor>
+        </munkakorkategoria>
+    </munkakorok>
+    <dolgozok>
+        <uzlethelyseg refid="">
+            <dolgozo_munkakore refid="">
+                <heti_munkaora ora="">
+                    <nem fiue="boolean">
+                        <allampolgarsag allampolgarsag="">
+                            <csaladi_statusz csaladistatusz="">
+                                <dolgozo id="">
+                                    <vezeteknev></vezeteknev>
+                                    <keresztnev></keresztnev>
+                                    <szuletesi_ido></szuletesi_ido>
+                                    <orszag>
+                                        <varos></varos>
+                                    </orszag>
+                                    <vegzettsegek>
+                                        <vegzettseg>
+                                            <tipus>
+                                            </tipus>
+                                            <szint>
+                                            </szint>
+                                            <megszerzes_ideje>
+                                            </megszerzes_ideje>
+                                        </vegzettseg>
+                                    </vegzettsegek>
+                                    <munkakori_leiras>
+                                        <fizetes_tipusa>
+                                        </fizetes_tipusa>
+                                        <fizetes>
+                                        </fizetes>
+                                        <heti_munkaora>
+                                        </heti_munkaora>
+                                    </munkakori_leiras>
+                                </csaladi_statusz>
+                            </allampolgarsag>
+                        </dolgozo>
+                    </nem>
+                </heti_munkaora>
+            </dolgozo_munkakore>
+        </uzlethelyseg>
+    </dolgozok>
+    <termek_tipus>
+        <termekalapfaj name= "elelmiszer">
+            <tipus name="pekaru">
+            <kenyer termek_tipus_id="">
+                </kenyer>
+                <zsomle termek_tipus_id="">
+                </zsomle>
+                <pogacsa termek_tipus_id="">
+                </pogacsa>
+            </tipus>
+            <tipus name="tejtermek">
+                <tej>
+                    <sovany termek_tipus_id="">
+                    </sovany>
+                    <zsiros termek_tipus_id="">
+                    </zsiros>
+                </tej>
+                <joghurt>
+                    <natur></natur>
+                    <gyumlocsos></gyumolcsos>
+                </joghurt>
+            </tipus>
+        </termekalapfaj>
+    </termek_tipus>
+    <markak>
+        <ceg name="">
+            <marka id="" nev=""></marka>
+        </ceg>
+    </markak>
+    <termekek>
+        <tipus refid="">
+            <marka refid="">
+                <termek id="">
+                        <ajanlott_ar></ajanlott_ar>
+                        <beszerzesi_ar></beszerzesi_ar>
+                </termek>
+            </marka>
+        </tipus>
+    </termekek>
+	<termekek_uzletben>
+            <uzlet refid="">
+                <akcio mertek="" kezdes_idotartalma="" akcio_vege="">
+                    <termek refid="">
+                        <jelenlegi_ar ar=""></jelenlegi_ar>
+                    </termek>
+                </akcio>
+            </uzlet>
+	</termekek_uzletben>
+	<torzsvarsarlok>
+            <kedvezmeny_tipusa tipus="">
+                <nem nem="">
+                    <csaladi_statusz st="">
+                        <allampolgarsag all="">
+                            <torzsvasarlo kartyaazonosito="">
+                            <vezeteknev></vezeteknev>
+                            <keresztnev></keresztnev>
+                            <szuletesi_ido></szuletesi_ido>
+                            <orszag orsz="">
+                                    <varos></varos>
+                            </orszag>
+                            <kartya_adatok>
+                                <kezdeti_datum></kezdeti_datum>
+                                <lejarati_datum></lejarati_datum>
+                            </kartya_adatok>
+                            </torzsvasarlo>
+                        </allampolgarsag>
+                    </csaladi_statusz>
+                </nem>		
+            </kedvezmeny_tipusa>
+	</torzsvarsarlok>
+	<vasarlasok>
+            <uzlethelyseg>
+                <penztaros>
+                    <vasarlas>
+                        <vasarolt_termekek>
+                            <vasarolt_termek id="" db="">
+                            </vasarolt_termek>
+                        </vasarolt_termekek>
+                        <fizetoeszkoz></fizetoeszkoz>
+                        <fizetes_modja></fizetes_modja>
+                        <vasarlas_ideje></vasarlas_ideje>
+                    </vasarlas>
+                </penztaros>
+                </uzlet>
+	</vasarlasok>
+</uzletlanc>
