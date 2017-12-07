@@ -1,0 +1,44 @@
+@media screen and (max-width: 840px){
+    #topmenu{
+        display:none;
+    }
+    #leftmenu{
+        width: 100%;
+        position: relative;
+        float:left;
+    }
+    #centersite{
+        width: 100%;
+    }
+    #rightmenu{
+        width: 100%;
+    }
+    .RightAlign{
+        text-align: left;
+    }
+    .BlockHalf{
+        width:100%;
+        padding-bottom: 10px;
+    }
+    .BlockFiveSixth{
+        width: 100%;
+    }
+    #topmobilmenu{
+        display:block;
+    }
+    #siteTitle{
+        display: none;
+    }
+    
+    table.MyTable {width:100%;}
+    table.MyTable thead {display: none;}
+    table.MyTable tbody td {display: block;  text-align:center;}
+    table.MyTable tbody td:before {
+        content: attr(data-th); 
+        display: block;
+        text-align:center;
+    }
+    table.MyTable tr:not(:nth-last-child(1)) td:nth-last-child(1){
+        border-bottom: 1px solid darkred;
+    }
+}

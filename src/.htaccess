@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteBase /fejl_adatb/
+    RewriteCond %{REQUEST_FILENAME} !-f [OR]
+    RewriteCond %{REQUEST_URI} !^.*\.(jpg|css|js|gif|png)$ [NC]
+    RewriteRule ^((?!index\.php).+)$ index.php?/$1&%{QUERY_STRING} [L]
+</IfModule>
+<IfModule !mod_rewrite.c>
+    ErrorDocument 404 index.php
+</IfModule>

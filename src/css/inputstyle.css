@@ -1,0 +1,46 @@
+input:not([type="submit"]):not([type="button"]):not([type="file"]):not([type="image"]), select, textarea, .LikeInput{
+    border-radius: 3px;
+    background-color: beige;
+    color: maroon;
+    width: calc(100% - 10px);
+    border-width: 1px;
+    margin: 1px;
+    padding: 1px;
+    box-sizing:border-box;
+}
+
+input[type="image"]{
+    background-color: inherit;
+}
+
+textarea{
+    resize: vertical;
+}
+
+label{
+    font-weight: bold;
+    color: maroon;
+}
+
+input[type="submit"], input[type="button"], .fileUpload{
+    background-color: blanchedalmond;
+    border: saddlebrown solid 1px;
+    color: saddlebrown;
+    padding: 1px 6px;
+    width: max-content;
+    width: -moz-max-content;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;    
+}
+.fileUpload input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+}

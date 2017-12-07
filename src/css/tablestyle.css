@@ -1,0 +1,14 @@
+table.MyTable{
+    border: chocolate solid 1px;
+    width:100%;
+    background-color: burlywood; 
+}
+
+table.MyTable th{
+    font-weight: bold;
+}
+
+table.MyTable th, td {
+    color: darkred;
+    text-align: center;
+}

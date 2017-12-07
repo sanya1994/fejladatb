@@ -1,0 +1,58 @@
+.BlockHalf{
+    width:50%;
+    float:left;
+    display:inline-table;
+}
+
+.BlockFourth{
+    width:25%;
+    float:left;
+    display:inline-table;
+}
+
+.BlockThird{
+    width:33.3%;
+    float:left;
+    display:inline-table;
+}
+
+.BlockSixth{
+    width:16.666%;
+    float:left;
+    display:inline-table;
+}
+
+.BlockFiveSixth{
+    width:83.333%;
+    float:left;
+    display:inline-table;
+}
+
+.BlockMiniSpacer{
+    height: 10px;
+    clear: both;
+}
+
+.BlockSpacer{
+    height: 20px;
+    clear: both;
+}
+
+.BlockEnd{
+    clear: both;
+}
+div.MyPage{ 
+    background: bisque;
+    border-radius: 10px;
+}
+
+.PageTitle{
+    background: tan;
+    text-align: center;
+    font-size: larger;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: saddlebrown;
+}

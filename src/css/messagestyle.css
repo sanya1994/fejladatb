@@ -1,0 +1,56 @@
+div.message{
+    border: antiquewhite groove 2px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: blanchedalmond;
+}
+
+div.message ul{
+    list-style-type: none;
+    color: sienna;
+}
+
+div.message.error{
+    border-color: burlywood;
+    background-color: brown;
+}
+
+div.message.error ul{
+    color: bisque;
+}
+
+div.message.success{
+    border-color: green;
+    background-color: aliceblue;
+}
+
+div.message.success ul{
+    color: green;
+}
+
+div.message.warning{
+    border-color: yellow;
+    background-color: sandybrown;
+}
+
+div.message.warning ul{
+    color: yellow;
+}
+
+div.message.helper{
+    border-color: appworkspace;
+    background-color: gainsboro;
+}
+
+div.message.helper ul{
+    color: darkslateblue;
+}
+
+div.message.normal{
+    border-color: coral;
+    background-color: blanchedalmond;
+}
+
+div.message.normal ul{
+    color: coral;
+}
