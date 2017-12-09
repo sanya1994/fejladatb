@@ -4,57 +4,57 @@
         <orszag name="Magyaroszág">
             <varos name="Városname" iranyitoszam="2135">
                 <kozter name="" jelleg="">
-                    <uzletag id="uzletagid" kozponte="" hazszam=""></uzletag>
+                    <uzletag id="uzletagid" hazszam=""></uzletag>
                 </kozter>
             </varos>
         </orszag>
     </uzlethelysegek>
     <munkakorok>
         <munkakorkategoria nev="">
-            <munkakor id="" nev="">
-                    <leiras></leiras>
-                    <varhato_fizetes></varhato_fizetes>
+            <munkakor id="" nev="" varhato_fizetes="">
             </munkakor>
         </munkakorkategoria>
     </munkakorok>
+    <vegzettsegek>
+        <tipus>
+            <szint id="">
+            </szint>
+        </tipus>
+    </vegzettsegek>
     <dolgozok>
         <uzlethelyseg refid="">
-            <dolgozo_munkakore refid="">
+            <munkakor refid="">
                 <heti_munkaora ora="">
                     <nem fiue="boolean">
                         <allampolgarsag allampolgarsag="">
                             <csaladi_statusz csaladistatusz="">
-                                <dolgozo id="">
-                                    <vezeteknev></vezeteknev>
-                                    <keresztnev></keresztnev>
-                                    <szuletesi_ido></szuletesi_ido>
-                                    <orszag>
-                                        <varos></varos>
-                                    </orszag>
-                                    <vegzettsegek>
-                                        <vegzettseg>
-                                            <tipus>
-                                            </tipus>
-                                            <szint>
-                                            </szint>
-                                            <megszerzes_ideje>
-                                            </megszerzes_ideje>
-                                        </vegzettseg>
-                                    </vegzettsegek>
-                                    <munkakori_leiras>
-                                        <fizetes_tipusa>
-                                        </fizetes_tipusa>
-                                        <fizetes>
-                                        </fizetes>
-                                        <heti_munkaora>
-                                        </heti_munkaora>
-                                    </munkakori_leiras>
-                                </csaladi_statusz>
-                            </allampolgarsag>
-                        </dolgozo>
+                                <fizetes_tipusa>
+                                    <szuletesi_ev ev = "">
+                                        <dolgozo id="">
+                                            <vezeteknev></vezeteknev>
+                                            <keresztnev></keresztnev>
+                                            <orszag>
+                                                <varos></varos>
+                                            </orszag>
+                                            <vegzettsegek>
+                                                <tipus>
+                                                    <szint>
+                                                        <megszerzes_eve>
+                                                            <vegzettseg id=""/>
+                                                        </megszerzes_eve>
+                                                    </szint>
+                                                </tipus>
+                                            </vegzettsegek>
+                                            <fizetes>
+                                            </fizetes>
+                                        </dolgozo>
+                                    </szuletesi_ev>
+                                </fizetes_tipusa>
+                            </csaladi_statusz>
+                        </allampolgarsag>
                     </nem>
                 </heti_munkaora>
-            </dolgozo_munkakore>
+            </munkakor>
         </uzlethelyseg>
     </dolgozok>
     <termek_tipus>
@@ -107,24 +107,24 @@
 	</termekek_uzletben>
 	<torzsvarsarlok>
             <kedvezmeny_tipusa tipus="">
-                <nem nem="">
-                    <csaladi_statusz st="">
-                        <allampolgarsag all="">
-                            <torzsvasarlo kartyaazonosito="">
-                            <vezeteknev></vezeteknev>
-                            <keresztnev></keresztnev>
-                            <szuletesi_ido></szuletesi_ido>
-                            <orszag orsz="">
-                                    <varos></varos>
-                            </orszag>
-                            <kartya_adatok>
-                                <kezdeti_datum></kezdeti_datum>
-                                <lejarati_datum></lejarati_datum>
-                            </kartya_adatok>
-                            </torzsvasarlo>
-                        </allampolgarsag>
-                    </csaladi_statusz>
-                </nem>		
+                <orszag orsz="">
+                    <varos>
+                        <nem nem="">
+                            <csaladi_statusz st="">
+                                <allampolgarsag all="">
+                                    <szuletesi_ev>
+                                        <torzsvasarlo kartyaazonosito="">
+                                            <vezeteknev></vezeteknev>
+                                            <keresztnev></keresztnev>
+                                            <kezdeti_datum></kezdeti_datum>
+                                            <lejarati_datum></lejarati_datum>
+                                        </torzsvasarlo>
+                                    </szuletesi_ev>
+                                </allampolgarsag>
+                            </csaladi_statusz>
+                        </nem>
+                    </varos>
+                </orszag>
             </kedvezmeny_tipusa>
 	</torzsvarsarlok>
 	<vasarlasok>
@@ -135,8 +135,7 @@
                             <vasarolt_termek id="" db="">
                             </vasarolt_termek>
                         </vasarolt_termekek>
-                        <fizetoeszkoz></fizetoeszkoz>
-                        <fizetes_modja></fizetes_modja>
+                        <fizetendo></fizetendo>
                         <vasarlas_ideje></vasarlas_ideje>
                     </vasarlas>
                 </penztaros>
