@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteBase /fejl_adatb/
+    RewriteBase /fejladatb/
     RewriteCond %{REQUEST_FILENAME} !-f [OR]
     RewriteCond %{REQUEST_URI} !^.*\.(jpg|css|js|gif|png)$ [NC]
     RewriteRule ^((?!index\.php).+)$ index.php?/$1&%{QUERY_STRING} [L]

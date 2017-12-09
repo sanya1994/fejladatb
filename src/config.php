@@ -5,7 +5,7 @@ $project_dir = getcwd();
 $libs = $project_dir.'/libs';
 $site_dir = $project_dir.'/sites';
 $site_libs = $site_dir.'/_libs';
-$project_path = '/fejl_adatb';
+$project_path = '/fejladatb';
 $act_url = $project_path!= ''  ?str_replace($project_path.'/','',$_SERVER['REQUEST_URI']) : $_SERVER['REQUEST_URI'];
 if(strpos($act_url, '?')!==false){
     $act_url = substr($act_url, 0,strpos($act_url,'?'));
@@ -25,12 +25,12 @@ include_once $libs.'/basic_functions.php';
 include_once $libs.'/input_creator.php';
 include_once $libs.'/mytable.php';
 include_once $libs.'/data.php';
+include_once $libs.'/myWords.php';
 include_once $libs.'/php-eXist-db-Client-master/lib/Client.class.php';
 include_once $libs.'/php-eXist-db-Client-master/lib/Query.class.php';
 include_once $libs.'/php-eXist-db-Client-master/lib/ResultSet.class.php';
 include_once $libs.'/php-eXist-db-Client-master/lib/SimpleXMLResultSet.class.php';
 include_once $libs.'/php-eXist-db-Client-master/lib/DOMResultSet.class.php';
-//include_once $libs.'/query-eXist-0.5/include/eXist.php';
 
 if(isset($_SESSION['messages'])){
     $messages = unserialize($_SESSION['messages']);
