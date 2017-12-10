@@ -244,7 +244,8 @@ function getAllTermek(){
                 'kalács'
             ),
             'tejtermékek' => array(
-                'tej',
+                '2,8 %-os tej',
+                '1,5 %-os tej',
                 'gyümölcsös_joghurt',
                 'natúr_joghurt'
             ),
@@ -254,17 +255,6 @@ function getAllTermek(){
                 'eper',
                 'körte',
                 'őszibarack',
-                'gyümölcsös_joghurt',
-                'natúr_joghurt'
-            ),
-            'gyümölcs' => array(
-                'alma',
-                'banán',
-                'eper',
-                'körte',
-                'őszibarack',
-                'gyümölcsös_joghurt',
-                'natúr_joghurt'
             ),
             'zöldség' => array(
                 'paprika',
@@ -297,12 +287,18 @@ function getAllTermek(){
                 'gurulós',
                 'nemgurulós'
             )
+        ),
+        'egyéb' => array(
+            'elem',
+            'szalvéta',
+            'fogkrém',
+            'CD'
         )
     );
 }
 
 function getAllMarka(){
-    return array('Pepsi','Nestle','Apple','Samsung', 'Tolle', 'Univer');
+    return array('Pepsi','Nestle','Apple','Samsung', 'Tolle', 'Univer', 'Colgate', 'Mirinda', 'Rauch', 'Maxell', 'Milka');
 }
 
 function getTorzsvasarloKedvezmenytipus(){
