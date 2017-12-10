@@ -264,7 +264,9 @@ function getAllTermek(){
             'egyéb' => array(
                 'csoki',
                 'narancs üdítő',
-                'alma üdítő'
+                'alma üdítő',
+                'Szénsavas ásványvíz',
+                'Szénsavmentes ásványvíz'
             )
         ),
         'írószerek' => array(
@@ -298,7 +300,7 @@ function getAllTermek(){
 }
 
 function getAllMarka(){
-    return array('Pepsi','Nestle','Apple','Samsung', 'Tolle', 'Univer', 'Colgate', 'Mirinda', 'Rauch', 'Maxell', 'Milka');
+    return array('Pepsi','Nestle','Apple','Samsung', 'Tolle', 'Univer', 'Colgate', 'Mirinda', 'Rauch', 'Maxell', 'Milka', 'Szentkirályi', 'Theodora', 'AVE', 'Mizo', 'Magyar tej');
 }
 
 function getTorzsvasarloKedvezmenytipus(){
