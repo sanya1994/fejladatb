@@ -3,7 +3,7 @@ include 'functions.php';
 
 $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
 <uzletlanc/>');
-$node_uzlethelyseg = $xml->addChild(MyWords::unaccent('uzlethelysegek'));
+$node_uzlethelyseg = $xml->addChild('uzlethelysegek');
 
 $orszagvarosok = array();
 for($i = rand(12,18); $i > 0; --$i){
@@ -21,12 +21,11 @@ $id = 0;
 foreach($orszagvarosok as $orszagvaros){
     if($beforeorszag!=$orszagvaros['ország']){
         $beforeorszag = $orszagvaros['ország'];
-        $node_orszag = $node_uzlethelyseg->addChild(MyWords::unaccent($orszagvaros['ország']));
+        $node_orszag = $node_uzlethelyseg->addChild($orszagvaros['ország']);
         $beforevaros = '';
     }
     if($beforevaros!=$orszagvaros['város']){
-        $node_varos = $node_orszag->addChild(MyWords::unaccent('varos'));
-        $node_varos->addAttribute('name', $orszagvaros['város']);
+        $node_varos = $node_orszag->addChild($orszagvaros['város']);
         $kozterhazszam = array();
         $beforevaros = $orszagvaros['város'];
     }
@@ -35,7 +34,7 @@ foreach($orszagvarosok as $orszagvaros){
     }
     while(in_array($kozter['kozternev'].$kozter['kozterjelleg'],array_keys($kozterhazszam)));
     $kozterhazszam[$kozter['kozternev'].$kozter['kozterjelleg']] = array();
-    $node_kozter = $node_varos->addChild(MyWords::unaccent('kozter'));
+    $node_kozter = $node_varos->addChild('kozter');
     $node_kozter->addAttribute('name', $kozter['kozternev']);
     $node_kozter->addAttribute('jelleg', $kozter['kozterjelleg']);
     
@@ -44,7 +43,7 @@ foreach($orszagvarosok as $orszagvaros){
     for($i = $rand <805 ? 1 : ($rand < 910 ? 2 : ($rand < 975 ? 3 : 4));$i>0;--$i){
         while(in_array($hazszam=rand(1,500),$kozterhazszam[$kozter['kozternev'].$kozter['kozterjelleg']]));
         $kozterhazszam[$kozter['kozternev'].$kozter['kozterjelleg']][]=$hazszam;
-        $node_uzletag = $node_kozter->addChild(MyWords::unaccent('uzletag'));
+        $node_uzletag = $node_kozter->addChild('uzletag');
         $node_uzletag->addAttribute('id', ++$id);
         $node_uzletag->addAttribute('hazszam', $hazszam);
         $uzlethelysegek[] = $id;
@@ -53,14 +52,14 @@ foreach($orszagvarosok as $orszagvaros){
 unset($orszagvarosok);
 
 $munkakors = getAllMunkakor();
-$node_munkakorok = $xml->addChild(MyWords::unaccent('munkakorok'));
+$node_munkakorok = $xml->addChild('munkakorok');
 $munkakorok = array();
 $id = 0;
 foreach($munkakors as $tipus => $munkakor){
-    $node_munkakorkategoria = $node_munkakorok->addChild(MyWords::unaccent('munkakorkategoria'));
+    $node_munkakorkategoria = $node_munkakorok->addChild('munkakorkategoria');
     $node_munkakorkategoria->addAttribute('nev', $tipus);
     foreach(array_unique($munkakor) as $megnevezes){
-        $node_munkakor = $node_munkakorkategoria->addChild(MyWords::unaccent('munkakor'));
+        $node_munkakor = $node_munkakorkategoria->addChild('munkakor');
         $node_munkakor->addAttribute('id', ++$id);
         $node_munkakor->addAttribute('nev', $megnevezes);
         $node_munkakor->addAttribute('varhato_fizetes', $fizetesek[$megnevezes]);
@@ -69,15 +68,15 @@ foreach($munkakors as $tipus => $munkakor){
 }
 unset($munkakors);
 
-$node_vegzettsegek= $xml->addChild(MyWords::unaccent('vegzettsegek'));
+$node_vegzettsegek= $xml->addChild('vegzettsegek');
 $vegzettsegs= getAllVegzettseg();
 $vegzettsegek = array();
 $id = 0;
 foreach($vegzettsegs as $tipus => $vegzettseg){
-    $node_vegzettsegtipus = $node_vegzettsegek->addChild(MyWords::unaccent('tipus'));
+    $node_vegzettsegtipus = $node_vegzettsegek->addChild('tipus');
     $node_vegzettsegtipus->addAttribute('tipus', $tipus);
     foreach(array_unique($vegzettseg) as $szint){
-        $node_szint = $node_vegzettsegtipus->addChild(MyWords::unaccent('szint'));
+        $node_szint = $node_vegzettsegtipus->addChild('szint');
         $node_szint->addAttribute('id', ++$id);
         $node_szint->addAttribute('szint', $szint);
         $vegzettsegek[$tipus.'|'.$szint] = $id;
@@ -159,99 +158,99 @@ usort($dolgozos, function($a,$b){
     return 0;
 });
 
-$node_dolgozok = $xml->addChild(MyWords::unaccent('dolgozok'));
+$node_dolgozok = $xml->addChild('dolgozok');
 $beforeuzlethelyseg = '';
 $id = 0;
 $eladok = array();
 foreach($dolgozos as $dolgozo){
     if($dolgozo['uzlethelyseg']!=$beforeuzlethelyseg){
-        $node_uzlethelyseg = $node_dolgozok->addChild(MyWords::unaccent('uzlethelyseg'));
+        $node_uzlethelyseg = $node_dolgozok->addChild('uzlethelyseg');
         $node_uzlethelyseg->addAttribute('id',$dolgozo['uzlethelyseg']);
         $beforeuzlethelyseg = $dolgozo['uzlethelyseg'];
         $beforemunkakor = '';
     }
     if($dolgozo['munkakor']!=$beforemunkakor){
-        $node_munkakor = $node_uzlethelyseg->addChild(MyWords::unaccent('munkakor'));
+        $node_munkakor = $node_uzlethelyseg->addChild('munkakor');
         $node_munkakor->addAttribute('id',$dolgozo['munkakor']);
         $beforemunkakor = $dolgozo['munkakor'];
         $beforeheti_munkaora = '';
     }
     if($dolgozo['heti_munkaora']!=$beforeheti_munkaora){
-        $node_heti_munkaora = $node_munkakor->addChild(MyWords::unaccent('heti_munkaora'));
+        $node_heti_munkaora = $node_munkakor->addChild('heti_munkaora');
         $node_heti_munkaora->addAttribute('ora',$dolgozo['heti_munkaora']);
         $beforeheti_munkaora = $dolgozo['heti_munkaora'];
         $beforenem = '';
     }
     if($dolgozo['nem']!=$beforenem){
-        $node_nem = $node_heti_munkaora->addChild(MyWords::unaccent($dolgozo['nem']));
+        $node_nem = $node_heti_munkaora->addChild($dolgozo['nem']);
         $beforenem = $dolgozo['nem'];
         $beforeallampolgarsag = '';
     }
     if($dolgozo['allampolgarsag']!=$beforeallampolgarsag){
-        $node_allampolgarsag = $node_nem->addChild(MyWords::unaccent($dolgozo['allampolgarsag']));
+        $node_allampolgarsag = $node_nem->addChild($dolgozo['allampolgarsag']);
         $beforeallampolgarsag = $dolgozo['allampolgarsag'];
         $beforeorszag = '';
     }
     if($dolgozo['lakcim']['ország']!=$beforeorszag){
-        $node_orszag = $node_allampolgarsag->addChild(MyWords::unaccent($dolgozo['lakcim']['ország']));
+        $node_orszag = $node_allampolgarsag->addChild($dolgozo['lakcim']['ország']);
         $beforeorszag = $dolgozo['lakcim']['ország'];
         $beforevaros = '';
     }
     if($dolgozo['lakcim']['város']!=$beforevaros){
-        $node_varos = $node_orszag->addChild(MyWords::unaccent($dolgozo['lakcim']['város']));
+        $node_varos = $node_orszag->addChild($dolgozo['lakcim']['város']);
         $beforevaros = $dolgozo['lakcim']['város'];
         $beforeszuletesi_ev = '';
     }
     if($dolgozo['szuletesi_ev']!=$beforeszuletesi_ev){
-        $node_szuletesi_ev = $node_varos->addChild(MyWords::unaccent('szuletesi_ev'));
+        $node_szuletesi_ev = $node_varos->addChild('szuletesi_ev');
         $node_szuletesi_ev->addAttribute('szuletesi_ev',$dolgozo['szuletesi_ev']);
         $beforeszuletesi_ev = $dolgozo['szuletesi_ev'];
         $beforecsaladi_statusz = '';
     }
     if($dolgozo['csaladi_statusz']!=$beforecsaladi_statusz){
-        $node_csaladi_statusz = $node_szuletesi_ev->addChild(MyWords::unaccent($dolgozo['csaladi_statusz']));
+        $node_csaladi_statusz = $node_szuletesi_ev->addChild($dolgozo['csaladi_statusz']);
         $beforecsaladi_statusz = $dolgozo['csaladi_statusz'];
         $beforefizetes_tipusa = '';
     }
     if($dolgozo['fizetes_tipusa']!=$beforefizetes_tipusa){
-        $node_fizetes_tipusa = $node_csaladi_statusz->addChild(MyWords::unaccent($dolgozo['fizetes_tipusa']));
+        $node_fizetes_tipusa = $node_csaladi_statusz->addChild($dolgozo['fizetes_tipusa']);
         $beforefizetes_tipusa = $dolgozo['fizetes_tipusa'];
     }
-    $node_dolgozo = $node_fizetes_tipusa->addChild(MyWords::unaccent('dolgozo'));
+    $node_dolgozo = $node_fizetes_tipusa->addChild('dolgozo');
     $node_dolgozo->addAttribute('id',++$id);
-    $node_dolgozo->addChild(MyWords::unaccent('vezeteknev',$dolgozo['nev']['vezetéknév']));
-    $node_dolgozo->addChild(MyWords::unaccent('keresztnev',$dolgozo['nev']['keresztnév']));
+    $node_dolgozo->addChild('vezeteknev',$dolgozo['nev']['vezetéknév']);
+    $node_dolgozo->addChild('keresztnev',$dolgozo['nev']['keresztnév']);
     
     if($munkakorok[$dolgozo['munkakor']]=='eladó'){
         $eladok[$id] = $dolgozo['uzlethelyseg'];
     }
     
-    $node_vegzettsegek = $node_dolgozo->addChild(MyWords::unaccent('vegzettsegek'));
+    $node_vegzettsegek = $node_dolgozo->addChild('vegzettsegek');
     $voltmar = array();
     foreach($dolgozo['vegzettsegek']  as $vegzettseg){
         if(isset($vegzettsegek[$vegzettseg['tipus'].'|'.$vegzettseg['szint']]) && !isset($voltmar[$vegzettsegek[$vegzettseg['tipus'].'|'.$vegzettseg['szint']]])){
             $voltmar[$vegzettsegek[$vegzettseg['tipus'].'|'.$vegzettseg['szint']]]='y';
-            $node_vegzettseg = $node_vegzettsegek->addChild(MyWords::unaccent('vegzettseg'));
+            $node_vegzettseg = $node_vegzettsegek->addChild('vegzettseg');
             $node_vegzettseg->addAttribute('id',$vegzettsegek[$vegzettseg['tipus'].'|'.$vegzettseg['szint']]);
             $node_vegzettseg->addAttribute('vegzesi_ev',rand($dolgozo['szuletesi_ev']+18,date('Y')));
         }
     }
     unset($voltmar);
     
-    $node_dolgozo->addChild(MyWords::unaccent('fizetes',$fizetesek[$munkakorok[$dolgozo['munkakor']]]*rand(80,120)/100));
+    $node_dolgozo->addChild('fizetes',$fizetesek[$munkakorok[$dolgozo['munkakor']]]*rand(80,120/100));
 }
 
-$node_termek_tipusok = $xml->addChild(MyWords::unaccent('termek_tipusok'));
+$node_termek_tipusok = $xml->addChild('termek_tipusok');
 $termeks= getAllTermek();
 
 $id = 0;
 $termektipusok = array();
 foreach($termeks as $tipuskey => $tipus){
-    $node_termektipus = $node_termek_tipusok->addChild(MyWords::unaccent($tipuskey));
+    $node_termektipus = $node_termek_tipusok->addChild($tipuskey);
     foreach($tipus as $kategoriakey => $kategoria){
-        $node_kategoriatipus = $node_termektipus->addChild(MyWords::unaccent($kategoriakey));
+        $node_kategoriatipus = $node_termektipus->addChild($kategoriakey);
         foreach($kategoria as $termek){
-            $node_termek = $node_kategoriatipus->addChild(MyWords::unaccent($termek));
+            $node_termek = $node_kategoriatipus->addChild($termek);
             $node_termek->addAttribute('id',++$id);
             $termektipusok[$id] = $termek;
         }
@@ -263,9 +262,9 @@ $markas = getAllMarka();
 
 $id = 0;
 $markak = array();
-$node_markak = $xml->addChild(MyWords::unaccent('markak'));
+$node_markak = $xml->addChild('markak');
 foreach($markas as $marka){
-    $node_marka = $node_markak->addChild(MyWords::unaccent($marka));
+    $node_marka = $node_markak->addChild($marka);
     $node_marka->addAttribute('id',++$id);
     $markak[$id] = $marka;
 }
@@ -275,17 +274,17 @@ unset($markas);
 
 $termekek = array();
 $id = 0;
-$node_termekek = $xml->addChild(MyWords::unaccent('termekek'));
+$node_termekek = $xml->addChild('termekek');
 foreach(array_keys($termektipusok) as $id){
-    $node_tipus = $node_termekek->addChild(MyWords::unaccent('tipus'));
+    $node_tipus = $node_termekek->addChild('tipus');
     $node_tipus->addAttribute('id',$id);
     $voltmarka = array();
     for($i=rand(1,count($markak));$i>0;--$i){
         while(in_array($actmarka = $markak[array_rand($markak)], $voltmarka));
         $voltmarka[] = $actmarka;
-        $node_marka = $node_tipus->addChild(MyWords::unaccent('marka'));
+        $node_marka = $node_tipus->addChild('marka');
         $node_marka->addAttribute('id', array_search($actmarka, $markak));
-        $node_termek  = $node_marka->addChild(MyWords::unaccent('termek'));
+        $node_termek  = $node_marka->addChild('termek');
         $node_termek->addAttribute('id',++$id);
         $ar = rand(500,12000);
         $node_termek->addAttribute('ajanlott_ar',$ar*1.1);
@@ -294,10 +293,10 @@ foreach(array_keys($termektipusok) as $id){
     }
 }
 
-$node_termek_uzletben = $xml->addChild(MyWords::unaccent('termek_uzletben'));
+$node_termek_uzletben = $xml->addChild('termek_uzletben');
 $termekarak = array();
 foreach($uzlethelysegek as $id){
-    $node_uzlethelyseg = $node_termek_uzletben->addChild(MyWords::unaccent('uzlet'));
+    $node_uzlethelyseg = $node_termek_uzletben->addChild('uzlet');
     $node_uzlethelyseg->addAttribute('id',$id);
     $volttermekek = array();
     $voltakciok = array();
@@ -305,7 +304,7 @@ foreach($uzlethelysegek as $id){
     for($i= rand(5,count($termekek)%2);$i>0;--$i){
         if($aktakcio == '' || rand(1,50) ==5){
             while(in_array($aktakcio =array('mertek' => rand(1,60), 'kezdes' => rand(2014,2017).'-'.rand(1,11).'-'.rand(1,28), 'vég' => rand(2018,2085).'-'.rand(1,12).'-'.rand(1,28)),$voltakciok));
-            $node_aktakcio = $node_uzlethelyseg->addChild(MyWords::unaccent("akcio"));
+            $node_aktakcio = $node_uzlethelyseg->addChild("akcio");
             $node_aktakcio->addAttribute('mertek',$aktakcio['mertek']);
             $node_aktakcio->addAttribute('kezdete',$aktakcio['kezdes']);
             $node_aktakcio->addAttribute('befejezese',$aktakcio['vég']);
@@ -318,7 +317,7 @@ foreach($uzlethelysegek as $id){
             }
         }
         $volttermekek[] = $akttermek;
-        $node_termek = $node_aktakcio->addChild(MyWords::unaccent('termek'));
+        $node_termek = $node_aktakcio->addChild('termek');
         $node_termek->addAttribute('id',$akttermek);
         $node_termek->addAttribute('jelenlegi_ar',$termekek[$akttermek]*$aktakcio['mertek']/100);
         $termekarak[$id][$akttermek] = $termekek[$akttermek]*$aktakcio['mertek']/100;
@@ -381,54 +380,54 @@ usort($torzsvasarlos, function($a,$b){
     return 0;
 });
 
-$node_torzsvasarlok = $xml->addChild(MyWords::unaccent('torzsvasarlok'));
+$node_torzsvasarlok = $xml->addChild('torzsvasarlok');
 $beforekedvezmeny_tipusa = '';
 $torzsvasarlok = array();
 foreach($torzsvasarlos as $torzsvasalo){
     if($torzsvasalo['kedvezmeny_tipusa']!=$beforekedvezmeny_tipusa){
-        $node_kedvezmeny_tipusa = $node_torzsvasarlok->addChild(MyWords::unaccent('kedvezmeny_tipusa'));
+        $node_kedvezmeny_tipusa = $node_torzsvasarlok->addChild('kedvezmeny_tipusa');
         $node_kedvezmeny_tipusa->addAttribute('tipus',$torzsvasalo['kedvezmeny_tipusa']);
         $beforekedvezmeny_tipusa = $torzsvasalo['kedvezmeny_tipusa'];
         $beforeorszag = '';
     }
     if($torzsvasalo['lakcim']['ország']!=$beforeorszag){
-        $node_orszag = $node_kedvezmeny_tipusa->addChild(MyWords::unaccent($torzsvasalo['lakcim']['ország']));
+        $node_orszag = $node_kedvezmeny_tipusa->addChild($torzsvasalo['lakcim']['ország']);
         $beforeorszag = $torzsvasalo['lakcim']['ország'];
         $beforevaros = '';
     }
     if($torzsvasalo['lakcim']['város']!=$beforevaros){
-        $node_varos = $node_orszag->addChild(MyWords::unaccent($torzsvasalo['lakcim']['város']));
+        $node_varos = $node_orszag->addChild($torzsvasalo['lakcim']['város']);
         $beforevaros = $torzsvasalo['lakcim']['város'];
         $beforeszuletesi_ev = '';
     }
     if($torzsvasalo['szuletesi_ev']!=$beforeszuletesi_ev){
-        $node_szuletesi_ev = $node_varos->addChild(MyWords::unaccent('szuletesi_ev'));
+        $node_szuletesi_ev = $node_varos->addChild('szuletesi_ev');
         $node_szuletesi_ev->addAttribute("ev", $torzsvasalo['szuletesi_ev']);
         $beforeszuletesi_ev = $torzsvasalo['szuletesi_ev'];
         $beforenem = '';
     }
     if($torzsvasalo['nem']!=$beforenem){
-        $node_nem = $node_szuletesi_ev->addChild(MyWords::unaccent($torzsvasalo['nem']));
+        $node_nem = $node_szuletesi_ev->addChild($torzsvasalo['nem']);
         $beforenem = $torzsvasalo['nem'];
         $beforeallampolgarsag = '';
     }
     if($torzsvasalo['allampolgarsag']!=$beforeallampolgarsag){
-        $node_allampolgarsag = $node_nem->addChild(MyWords::unaccent($torzsvasalo['allampolgarsag']));
+        $node_allampolgarsag = $node_nem->addChild($torzsvasalo['allampolgarsag']);
         $beforeallampolgarsag = $torzsvasalo['allampolgarsag'];
         $beforecsaladi_statusz = '';
     }
     if($torzsvasalo['csaladi_statusz']!=$beforecsaladi_statusz){
-        $node_csaladi_statusz = $node_allampolgarsag->addChild(MyWords::unaccent($torzsvasalo['csaladi_statusz']));
+        $node_csaladi_statusz = $node_allampolgarsag->addChild($torzsvasalo['csaladi_statusz']);
         $beforecsaladi_statusz = $torzsvasalo['csaladi_statusz'];
     }
-    $node_torzsvasarlo = $node_csaladi_statusz->addChild(MyWords::unaccent('torzsvasarlo'));
+    $node_torzsvasarlo = $node_csaladi_statusz->addChild('torzsvasarlo');
     while(in_array($kartyaazonosito = md5(rand(1,100000000000000000)*rand(1,1000000000000000)),$torzsvasarlok));
     $torzsvasarlok[] = $kartyaazonosito;
     $node_torzsvasarlo->addAttribute('kartyaazonosito',$kartyaazonosito);
-    $node_torzsvasarlo->addChild(MyWords::unaccent('vezeteknev',$torzsvasalo['nev']['vezetéknév']));
-    $node_torzsvasarlo->addChild(MyWords::unaccent('keresztnev',$torzsvasalo['nev']['keresztnév']));
-    $node_torzsvasarlo->addChild(MyWords::unaccent('kezdeti_datum',rand(2014,2017).'-'.rand(1,11).'-'.rand(1,28)));
-    $node_torzsvasarlo->addChild(MyWords::unaccent('lejarati_datum',rand(2018,2057).'-'.rand(1,12).'-'.rand(1,28)));
+    $node_torzsvasarlo->addChild('vezeteknev',$torzsvasalo['nev']['vezetéknév']);
+    $node_torzsvasarlo->addChild('keresztnev',$torzsvasalo['nev']['keresztnév']);
+    $node_torzsvasarlo->addChild('kezdeti_datum',rand(2014,2017).'-'.rand(1,11).'-'.rand(1,28));
+    $node_torzsvasarlo->addChild('lejarati_datum',rand(2018,2057).'-'.rand(1,12).'-'.rand(1,28));
 }
 
 unset($torzsvasarlos);
@@ -461,40 +460,40 @@ usort($vasarlass, function($a,$b){
     return 0;
 });
 
-$node_vasarlasok = $xml->addChild(MyWords::unaccent('vasarlasok'));
+$node_vasarlasok = $xml->addChild('vasarlasok');
 $beforeuzlethelyseg = '';
 foreach($vasarlass as $vasarlas){
     if($vasarlas['uzlethelyseg']!=$beforeuzlethelyseg){
-        $node_uzlethelyseg = $node_vasarlasok->addChild(MyWords::unaccent('vasarlasi_uzlethelyseg'));
+        $node_uzlethelyseg = $node_vasarlasok->addChild('vasarlasi_uzlethelyseg');
         $node_uzlethelyseg->addAttribute('id',$vasarlas['uzlethelyseg']);
         $beforeuzlethelyseg = $vasarlas['uzlethelyseg'];
         $beforepenztaros = '';
     }
     if($vasarlas['penztaros']!=$beforepenztaros){
-        $node_penztaros = $node_uzlethelyseg->addChild(MyWords::unaccent('penztaros'));
+        $node_penztaros = $node_uzlethelyseg->addChild('penztaros');
         $node_penztaros->addAttribute('id',$vasarlas['penztaros']);
         $beforepenztaros = $vasarlas['penztaros'];
         $beforeev = '';
     }
     if($vasarlas['ev']!=$beforeev){
-        $node_ev = $node_penztaros->addChild(MyWords::unaccent('vasarlasi_ev'));
+        $node_ev = $node_penztaros->addChild('vasarlasi_ev');
         $node_ev->addAttribute('ev',$vasarlas['ev']);
         $beforeev = $vasarlas['ev'];
     }
-    $node_vasarlas = $node_ev->addChild(MyWords::unaccent('vasarlas'));
+    $node_vasarlas = $node_ev->addChild('vasarlas');
     
-    $node_vasarolt_termekek = $node_vasarlas->addChild(MyWords::unaccent('vasarolt_termekek'));
+    $node_vasarolt_termekek = $node_vasarlas->addChild('vasarolt_termekek');
     $sum = 0;
     foreach(array_keys($vasarlas['vasarolt_termekek']) as $termek){
         $db = rand(1,25);
-        $node_vasarolt_termek = $node_vasarolt_termekek->addChild(MyWords::unaccent('vasarolt_termek'));
+        $node_vasarolt_termek = $node_vasarolt_termekek->addChild('vasarolt_termek');
         $node_vasarolt_termek->addAttribute('id', $termek);
         $node_vasarolt_termek->addAttribute('db',$db);
         $sum+= $termekarak[$vasarlas['uzlethelyseg']][$termek] * $db;
     }
     
-    $node_vasarlas->addChild(MyWords::unaccent('fizetendo',$sum));
-    $node_vasarlas->addChild(MyWords::unaccent('vasarlas_ideje',$vasarlas['ev'].'-'.rand(1,11).'-'.rand(1,28)));
+    $node_vasarlas->addChild('fizetendo',$sum);
+    $node_vasarlas->addChild('vasarlas_ideje',$vasarlas['ev'].'-'.rand(1,11).'-'.rand(1,28));
 }
 
 unset($vasarlass);
