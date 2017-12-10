@@ -256,7 +256,22 @@ function getAllTermek(){
                 'őszibarack',
                 'gyümölcsös_joghurt',
                 'natúr_joghurt'
-            ),'egyéb' => array(
+            ),
+            'gyümölcs' => array(
+                'alma',
+                'banán',
+                'eper',
+                'körte',
+                'őszibarack',
+                'gyümölcsös_joghurt',
+                'natúr_joghurt'
+            ),
+            'zöldség' => array(
+                'paprika',
+                'paradicsom',
+                'sárgarépa'
+            ),
+            'egyéb' => array(
                 'csoki',
                 'narancs üdítő',
                 'alma üdítő'
@@ -264,7 +279,9 @@ function getAllTermek(){
         ),
         'írószerek' => array(
             'papírok' => array(
-                'A4-es_papír'
+                'A4-es_papír',
+                'toll',
+                'ceruza'
             )
         ),
         'bútorok' => array(
@@ -285,7 +302,7 @@ function getAllTermek(){
 }
 
 function getAllMarka(){
-    return array('Pepsi','Nestle','Apple','Samsung');
+    return array('Pepsi','Nestle','Apple','Samsung', 'Tolle', 'Univer');
 }
 
 function getTorzsvasarloKedvezmenytipus(){
