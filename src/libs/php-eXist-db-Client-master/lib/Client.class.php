@@ -66,7 +66,8 @@ class Client
 		$this->client = \XML_RPC2_Client::create(
 			$this->uri,
 			array(
-					'encoding'=>'utf-8'
+                            'encoding'=>'utf-8',
+                            'escaping' => "markup"
 			)
 		);
 	}
