@@ -125,7 +125,7 @@ function getHetiOra(){
     $rand = rand(1,1000);
     if($rand<900){
         return 40;
-    } else ($rand > 899 && $rand < 950) {
+    } else if($rand > 899 && $rand < 950) {
         return 30;
     } else{
         return 20;
