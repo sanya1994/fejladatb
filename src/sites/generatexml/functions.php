@@ -66,6 +66,7 @@ function getAllMunkakor(){
         'bolti munkás' => array(
             'árufeltöltő','árufeltöltő','árufeltöltő','árufeltöltő','árufeltöltő',
             'eladó','eladó','eladó','eladó','eladó','eladó','eladó','eladó','eladó','eladó','eladó',
+            'pénztáros','pénztáros','pénztáros','pénztáros','pénztáros',
         ),
         'egyéb' => array(
             'takarító','takarító','takarító','takarító','takarító','takarító',
@@ -87,6 +88,7 @@ $fizetesek = array(
     'rendszergazda' => 250000,
     'árufeltöltő' => 160000,
     'eladó' => 160000,
+    'pénztáros' => 180000,
     'takarító' => 140000,
     'karbantartó' => 140000,
     'logisztikai megbízott' => 200000,
@@ -121,8 +123,10 @@ function getMunkakor($munkakortszeretnek = true, $tipus = NULL, $dont = NULL){
 
 function getHetiOra(){
     $rand = rand(1,1000);
-    if($rand<950){
+    if($rand<900){
         return 40;
+    } else ($rand > 899 && $rand < 950) {
+        return 30;
     } else{
         return 20;
     }
@@ -133,7 +137,7 @@ function getNem(){
 }
 
 function getAllampolgarsag(){
-    $allampolgarsagok = array('magyar','magyar','magyar','magyar','magyar','magyar','ausztriai','román');
+    $allampolgarsagok = array('magyar','magyar','magyar','magyar','magyar','magyar','magyar','magyar','magyar','magyar','osztrák','román', 'szlovák', 'cseh', 'német', 'angol', 'horvát', 'szerb', 'szlovén');
     return $allampolgarsagok[rand(0,count($allampolgarsagok)-1)];
 }
 
@@ -162,7 +166,7 @@ function getFizetesTipusa(){
 function getAllVegzettseg(){
     $vegzettsegek = array(
     );
-     foreach(array('német','német','német','angol','angol','angol','angol','angol','finn','japán','orosz') as $nyelv){
+     foreach(array('német','német','német','angol','angol','angol','angol','angol','finn','japán','orosz', 'francia', 'olasz') as $nyelv){
         $vegzettsegek[$nyelv.' nyelvvizsga'] = array();
         foreach(array('A','B', 'C', 'C') as $tipus){
             foreach(array('alapfokú','középfokú','középfokú','középfokú','felsőfokú','felsőfokú') as $fok){
@@ -170,9 +174,9 @@ function getAllVegzettseg(){
             }
         }
     }
-    foreach(array('üzletvezetői','kereskedelem és marketing','kereskedelem és marketing','programtervezői informatikus','gazdasági informatikus') as $diploma){
+    foreach(array('üzletvezetői','kereskedelem és marketing','kereskedelem és marketing','programtervező informatikus','gazdasági informatikus', 'mérnök informatikus') as $diploma){
         $vegzettsegek[$diploma.' oktatási oklevél'] = array();
-        foreach(array('bsc','bsc','bsc','msc','okj') as $szint){
+        foreach(array('bsc','bsc','bsc','msc','okj', 'érettségi') as $szint){
             $vegzettsegek[$diploma.' oktatási oklevél'][] = $szint;
         }
     }
@@ -243,6 +247,19 @@ function getAllTermek(){
                 'tej',
                 'gyümölcsös_joghurt',
                 'natúr_joghurt'
+            ),
+            'gyümölcs' => array(
+                'alma',
+                'banán',
+                'eper',
+                'körte',
+                'őszibarack',
+                'gyümölcsös_joghurt',
+                'natúr_joghurt'
+            ),'egyéb' => array(
+                'csoki',
+                'narancs üdítő',
+                'alma üdítő'
             )
         ),
         'írószerek' => array(
