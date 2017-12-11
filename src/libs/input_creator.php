@@ -62,7 +62,7 @@ class InputCreators{
         return $input;
     }
     
-    static function selectcreator($id, $name, $attributes=array()){
+    static function selectcreator($id, $name, $list, $attributes=array()){
         $multiple_value = isset($attributes['multiple_value']) ? $attributes['multiple_value'] : false;
         $form_type = isset($attributes['form_type']) ? $attributes['form_type'] : 'POST';
         
