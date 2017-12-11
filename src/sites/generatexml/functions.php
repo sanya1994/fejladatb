@@ -10,8 +10,13 @@ function getNev($nem){
     }
     return array('vezetéknév' => $lastname[array_rand($lastname,1)], 'keresztnév' => $firstname[array_rand($firstname,1)]);
 }
-global $varosok;
-$varosok = array(
+
+function getAllOrszag(){
+    return array('Magyarország','Ausztria','Románia');
+}
+
+function getAllOrszagVaros(){
+    $varosok = array(
         'Magyarország' =>
             array(
                 'Debrecen','Debrecen','Debrecen','Debrecen','Debrecen','Debrecen','Debrecen','Debrecen','Debrecen',
@@ -39,8 +44,10 @@ $varosok = array(
                 'Kolozsvár'
             )
     );
+    return $varosok;
+}
 function getRandomOrszagVaros(){
-    global $varosok;
+    $varosok = getAllOrszagVaros();
     $rand = rand(1,1000);
     if($rand<856){
         return array('ország' => 'Magyarország', 'város' => $varosok['Magyarország'][array_rand($varosok['Magyarország'],1)]);
@@ -273,8 +280,8 @@ function getAllTermek(){
             ),
             'egyéb' => array(
                 'csoki',
-                'narancs üdítő',
-                'alma üdítő'
+                'narancs_üdítő',
+                'alma_üdítő'
             )
         ),
         'írószerek' => array(

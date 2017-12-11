@@ -43,7 +43,7 @@ foreach($orszagvarosok as $orszagvaros){
     for($i = $rand <805 ? 1 : ($rand < 910 ? 2 : ($rand < 975 ? 3 : 4));$i>0;--$i){
         while(in_array($hazszam=rand(1,500),$kozterhazszam[$kozter['kozternev'].$kozter['kozterjelleg']]));
         $kozterhazszam[$kozter['kozternev'].$kozter['kozterjelleg']][]=$hazszam;
-        $node_uzletag = $node_kozter->addChild('uzletag');
+        $node_uzletag = $node_kozter->addChild('uzlethely');
         $node_uzletag->addAttribute('id', ++$id);
         $node_uzletag->addAttribute('hazszam', $hazszam);
         $uzlethelysegek[] = $id;
