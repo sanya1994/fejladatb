@@ -41,7 +41,7 @@
             <div id="leftmenu">
                 <div class="PageTitle">UDFKJ üzletlánc</div>
                 <?php
-                $menus = array(''=>'Főoldal','shops' => 'Üzletek','employees' => 'Alkalmazottak','costumers' => 'Törzsvásárlók', 'search' => 'Keresés');
+                $menus = array(''=>'Főoldal','search' => 'Keresés');
                 foreach($menus as $menu => $alias){
                     if(existSite($menu)){
                         echo '<div class="menu"><a href="',$project_path,'/',$menu,'">',$alias,'</a></div>';
