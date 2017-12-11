@@ -64,11 +64,11 @@ $xql.='
                         where $dolgozokszama '.$dolgozok_szama_operator.' '.$dolgozok_szama;
             }
 $xql.='
-                        return <uzlethely id="{$uzlethely/@id}"><orszag>{$orszagname}</orszag><varos>{$varosname}</varos><koztername>{$kozter/@name}</koztername><kozterjelleg>{$kozter/@jelleg}</kozterjelleg><hazszam>{$uzlethely/@hazszam}</hazszam><vasarlasok_szama>{$vasarlasokszama}</vasarlasok_szama><dolgozok_szama>{$dolgozokszama}</dolgozok_szama></uzlethely>
+                        return <uzlethely id="{$uzlethely/@id}"><orszag>{$orszagname}</orszag><varos>{$varosname}</varos><kozternev>{data($kozter/@name)}</kozternev><kozterjellege>{data($kozter/@jelleg)}</kozterjellege><hazszam>{data($uzlethely/@hazszam)}</hazszam><vasarlasok_szama>{$vasarlasokszama}</vasarlasok_szama><dolgozok_szama>{$dolgozokszama}</dolgozok_szama></uzlethely>
 ';
-var_dump($xql);
 
 $stmt = $conn->prepareQuery($xql);
 $resultPool = $stmt->execute();
 $results = $resultPool->getAllResults();
-var_dump($results);
+
+return $results;
