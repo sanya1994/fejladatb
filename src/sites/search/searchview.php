@@ -1,6 +1,5 @@
 <?php
 
-
 $typeLabel = '<label for="type">Ajda meg mit keres:&nbsp;</label>';
 $typeSelect = InputCreators::selectcreator('type', 'type', $types,array('required'=>'true'));
 
@@ -42,12 +41,14 @@ $content = <<<CONTENT
 CONTENT;
 
 $updategetjs = '';
-$updategetjs.=
+if(isset($_GET['type'])){
+    $updategetjs.=
 'if($("#type").length){
     $("#type").val("'.$_GET['type'].'").trigger("change");
 }';
+}
 foreach($_GET as $key => $value){
-$updategetjs.=
+    $updategetjs.=
 'if($("#'.$key.'").length){
     $("#'.$key.'").val("'.$value.'").trigger("change");
 }';
