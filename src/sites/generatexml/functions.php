@@ -16,7 +16,7 @@ function getAllOrszag(){
 }
 
 function getAllOrszagVaros(){
-    $varosok = array(
+$varosok = array(
         'Magyarország' =>
             array(
                 'Debrecen','Debrecen','Debrecen','Debrecen','Debrecen','Debrecen','Debrecen','Debrecen','Debrecen',
@@ -251,7 +251,8 @@ function getAllTermek(){
                 'kalács'
             ),
             'tejtermékek' => array(
-                'tej',
+                '2_8tej',
+                '1_5tej',
                 'gyümölcsös_joghurt',
                 'natúr_joghurt'
             ),
@@ -261,17 +262,6 @@ function getAllTermek(){
                 'eper',
                 'körte',
                 'őszibarack',
-                'gyümölcsös_joghurt',
-                'natúr_joghurt'
-            ),
-            'gyümölcs' => array(
-                'alma',
-                'banán',
-                'eper',
-                'körte',
-                'őszibarack',
-                'gyümölcsös_joghurt',
-                'natúr_joghurt'
             ),
             'zöldség' => array(
                 'paprika',
@@ -281,7 +271,9 @@ function getAllTermek(){
             'egyéb' => array(
                 'csoki',
                 'narancs_üdítő',
-                'alma_üdítő'
+                'alma_üdítő',
+                'Szénsavas_ásványvíz',
+                'Szénsavmentes_ásványvíz'
             )
         ),
         'írószerek' => array(
@@ -309,7 +301,7 @@ function getAllTermek(){
 }
 
 function getAllMarka(){
-    return array('Pepsi','Nestle','Apple','Samsung', 'Tolle', 'Univer');
+    return array('Pepsi','Nestle','Apple','Samsung', 'Tolle', 'Univer', 'Colgate', 'Mirinda', 'Rauch', 'Maxell', 'Milka', 'Szentkirályi', 'Theodora', 'AVE', 'Mizo');
 }
 
 function getTorzsvasarloKedvezmenytipus(){
