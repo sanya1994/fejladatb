@@ -20,7 +20,12 @@ $fields = array(
 
 $name = array(
     'orszag' => 'Ország',
-    'varos' => 'Város'
+    'varos' => 'Város',
+    'kozternev' => 'Közterület neve',
+    'kozterjelleg' => 'Közterület jellege',
+    'hazszam' => 'Házszám',
+    'vasarlasok_szama' => 'Vásárlások száma',
+    'dolgozok_szama' => 'Dolgozók száma'
 );
 
 $booloperators = array(

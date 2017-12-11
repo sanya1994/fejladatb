@@ -25,4 +25,22 @@ foreach($fields['uzlethely'] as $fieldname => $fieldvalue){
     $uzlethelyjs .= '<div class="BlockMiniSpacer"></div>';
 }
 
+$uzlethelyjs='$("#fields").html(\''.$uzlethelyjs.'\');';
+
+$orders = array();
+foreach(array_keys($fields['uzlethely']) as $field){
+    $orders[$field] = $name[$field];
+}
+foreach(array('first_order','second_order','third_order') as $order){
+    $uzlethelyjs.='var $el = $("#'.$order.'");
+$el.empty();
+$el.append($("<option></option>")
+         .attr("value","").text("Kérem válasszon!"));';
+    foreach($orders as $key => $value){
+    $uzlethelyjs.='
+    $el.append($("<option></option>")
+         .attr("value", "'.$key.'").text("'.$value.'"));';
+    }
+}
+
 return $uzlethelyjs;

@@ -24,13 +24,32 @@ $vasarlasok_szama = $vasarlasok_szama_operator!='' && isset($_GET[$prefix.'vasar
 $dolgozok_szama_operator = isset($_GET[$prefix.'dolgozok_szama_operator']) && in_array($_GET[$prefix.'dolgozok_szama_operator'], array_keys($booloperators)) ? $_GET[$prefix.'dolgozok_szama_operator'] : '';
 $dolgozok_szama = $dolgozok_szama_operator!='' && isset($_GET[$prefix.'dolgozok_szama']) && is_numeric($_GET[$prefix.'dolgozok_szama']) ? $_GET[$prefix.'dolgozok_szama'] : '';
 
+$fieldtoVariable = array(
+    'orszag' => '$orszagname',
+    'varos' => '$varosname',
+    'kozternev' => 'data($kozter/@name)',
+    'kozterjelleg' => 'data($kozter/@jelleg)',
+    'hazszam' => 'data($uzlethely/@hazszam)',
+    'vasarlasok_szama' => '$vasarlasokszama',
+    'dolgozok_szama' => '$dolgozokszama'
+);
+$orderbys = array();
+foreach(array('first_order','second_order','third_order') as $order){
+    $myorder = isset($_GET[$order]) && isset($fieldtoVariable[$_GET[$order]]) ? $fieldtoVariable[$_GET[$order]] : '';
+    $myorder_type = isset($_GET[$order.'_type']) && in_array($_GET[$order.'_type'],array('ascending','descending')) ? $_GET[$order.'_type'] : '';
+    if($myorder!=''){
+        $orderbys[] = $myorder.' '.$myorder_type;
+    }
+}
+
 $kozterwhere =array();
 if($kozternev!=''){
-    $kozterwhere[] = '$kozter/@name = '.$kozternev;
+    $kozterwhere[] = 'fn:matches(lower-case($kozter/@name),lower-case("'.$kozternev.'"))';
 }
 if($kozterjelleg!=''){
-    $kozterwhere[] = '$kozter/@jelleg = '.$kozterjelleg;
+    $kozterwhere[] = 'fn:matches(lower-case($kozter/@jelleg),lower-case("'.$kozterjelleg.'"))';
 }
+
 $xql =
 'for $orszag in /uzletlanc/uzlethelysegek/'.($orszag!='' ? $orszag : '*').'
     let $orszagname:= name($orszag)
@@ -63,8 +82,12 @@ $xql.='
                 $xql.='
                         where $dolgozokszama '.$dolgozok_szama_operator.' '.$dolgozok_szama;
             }
+            if(!empty($orderbys)){
+                $xql.='
+                        order by '.implode(',',$orderbys);
+            }
 $xql.='
-                        return <uzlethely id="{$uzlethely/@id}"><orszag>{$orszagname}</orszag><varos>{$varosname}</varos><kozternev>{data($kozter/@name)}</kozternev><kozterjellege>{data($kozter/@jelleg)}</kozterjellege><hazszam>{data($uzlethely/@hazszam)}</hazszam><vasarlasok_szama>{$vasarlasokszama}</vasarlasok_szama><dolgozok_szama>{$dolgozokszama}</dolgozok_szama></uzlethely>
+                        return <uzlethely id="{$uzlethely/@id}"><orszag>{$orszagname}</orszag><varos>{$varosname}</varos><kozternev>{data($kozter/@name)}</kozternev><kozterjelleg>{data($kozter/@jelleg)}</kozterjelleg><hazszam>{data($uzlethely/@hazszam)}</hazszam><vasarlasok_szama>{$vasarlasokszama}</vasarlasok_szama><dolgozok_szama>{$dolgozokszama}</dolgozok_szama></uzlethely>
 ';
 
 $stmt = $conn->prepareQuery($xql);
