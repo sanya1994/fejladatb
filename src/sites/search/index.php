@@ -1,8 +1,14 @@
 <?php
+include 'variables.php';
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+if(isset($_GET['search'])){
+    if(isset($_GET['type']) && isset($types[$_GET['type']])){
+        if($_GET['type']=='uzlethely'){
+            include 'uzlethelysearch.php';
+        }
+    } else{
+        setMessage('Nem adott meg típust!', 'error');
+    }
+}
 
+include 'searchview.php';
