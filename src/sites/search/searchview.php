@@ -40,3 +40,19 @@ $content = <<<CONTENT
     </div>
 </form>
 CONTENT;
+
+$updategetjs = '';
+$updategetjs.=
+'if($("#type").length){
+    $("#type").val("'.$_GET['type'].'").trigger("change");
+}';
+foreach($_GET as $key => $value){
+$updategetjs.=
+'if($("#'.$key.'").length){
+    $("#'.$key.'").val("'.$value.'").trigger("change");
+}';
+}
+addJS('$(document).ready(
+    function(){
+        '.$updategetjs.'
+});');

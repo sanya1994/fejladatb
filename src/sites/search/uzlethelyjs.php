@@ -1,6 +1,5 @@
 <?php
 $uzlethelyjs='';
-$aktorszag = isset($_GET['uzlethely_orszag']) ? $_GET['uzlethely_orszag'] : '';
 foreach($fields['uzlethely'] as $fieldname => $fieldvalue){
     $fieldLabel = '<label for="uzlethely_'.$fieldname.'">'.(isset($name[$fieldname]) ? $name[$fieldname] : $fieldname).':&nbsp;</label>';
     $uzlethelyjs .= '<div class="BlockSixth RightAlign">'.$fieldLabel.'</div>';
