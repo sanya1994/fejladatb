@@ -6,6 +6,7 @@ $typeSelect = InputCreators::selectcreator('type', 'type', $types,array('require
 $searchButton = InputCreators::inputcreator('search','search','submit',array('value'=>'Keresés'));
 
 $uzlethelyjs = include 'uzlethelyjs.php';
+$dolgozojs = include 'dolgozojs.php';
 
 $changejs =
 '$(document).ready(
@@ -20,6 +21,8 @@ $changejs =
             }
             if($(this).val()=="uzlethely"){
                 '.$uzlethelyjs.'
+            } else if($(this).val()=="dolgozo"){
+                '.$dolgozojs.'
             }
         });
 });';

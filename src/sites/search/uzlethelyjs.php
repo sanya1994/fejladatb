@@ -1,7 +1,7 @@
 <?php
 $uzlethelyjs='';
 foreach($fields['uzlethely'] as $fieldname => $fieldvalue){
-    $fieldLabel = '<label for="uzlethely_'.$fieldname.'">'.(isset($name[$fieldname]) ? $name[$fieldname] : $fieldname).':&nbsp;</label>';
+    $fieldLabel = '<label for="uzlethely_'.$fieldname.'">'.(isset($name['uzlethely'][$fieldname]) ? $name['uzlethely'][$fieldname] : $fieldname).':&nbsp;</label>';
     $uzlethelyjs .= '<div class="BlockSixth RightAlign">'.$fieldLabel.'</div>';
     if(is_array($fieldvalue) && $fieldname!='varos'){
         $fieldSelect = InputCreators::selectcreator('uzlethely_'.$fieldname, 'uzlethely_'.$fieldname, array_combine($fieldvalue,$fieldvalue));
@@ -29,7 +29,7 @@ $uzlethelyjs='$("#fields").html(\''.$uzlethelyjs.'\');';
 
 $orders = array();
 foreach(array_keys($fields['uzlethely']) as $field){
-    $orders[$field] = $name[$field];
+    $orders[$field] = $name['uzlethely'][$field];
 }
 foreach(array('first_order','second_order','third_order') as $order){
     $uzlethelyjs.='var $el = $("#'.$order.'");
