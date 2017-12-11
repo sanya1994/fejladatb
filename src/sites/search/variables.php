@@ -28,6 +28,6 @@ $booloperators = array(
     '>' => 'Nagyobb, mint',
     '<=' => 'Kisebb egyenlő, mint',
     '>=' => 'Nagyobb egyenlő, mint',
-    '==' => 'Egyenlő',
-    '!=' => 'Nem egyenlő',
+    '=' => 'Egyenlő',
+    '<>' => 'Nem egyenlő',
 );

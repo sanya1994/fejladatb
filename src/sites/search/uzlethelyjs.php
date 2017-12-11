@@ -15,7 +15,7 @@ foreach($fields['uzlethely'] as $fieldname => $fieldvalue){
         $uzlethelyjs .= '<div class="BlockFiveSixth">'.$fieldSelect.'</div>';
     }else if($fieldvalue=='biggerint'){
         $fieldSelect = InputCreators::selectcreator('uzlethely_'.$fieldname.'_operator', 'uzlethely_'.$fieldname.'_operator', $booloperators);
-        $fieldInput = InputCreators::inputcreator('uzlethely_'.$fieldname, 'uzlethely_'.$fieldname, 'numeric');
+        $fieldInput = InputCreators::inputcreator('uzlethely_'.$fieldname, 'uzlethely_'.$fieldname, 'number');
         $uzlethelyjs .= '<div class="BlockSixth">'.$fieldSelect.'</div>';
         $uzlethelyjs .= '<div class="BlockTwoThird">'.$fieldInput.'</div>';
     } else if($fieldvalue=='string'){
