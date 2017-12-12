@@ -6,12 +6,12 @@ foreach($name[$_GET['type']] as $key => $column){
     $table.='<th>'.$column.'</th>';
 }
 $table.='</tr></thead><tbody>';
-foreach($results as $result){
-    $processedresult = simplexml_load_string($result);
+$processedresult= simplexml_load_string($results[0]);
+foreach($processedresult->children() as $result){
     $table.='<tr>';
-    $table.='<td>'.$processedresult->attributes()->id.'</td>';
+    $table.='<td>'.$result->attributes()->id.'</td>';
     foreach($name[$_GET['type']] as $key => $column){
-        $table.='<td>'.$processedresult->$key.'</td>';
+        $table.='<td>'.$result->$key.'</td>';
     }
     $table.='</tr>';
 }

@@ -48,38 +48,48 @@ if($keresztnev!=''){
 }
 
 $xql =
-'for $orszag in /uzletlanc/uzlethelysegek/*
+'
+let $munka := for $munkakor in /uzletlanc/munkakorok/descendant-or-self::node()/munkakor
+    ';
+if($munkakor!=''){
+    $xql.='where $munkakor/@nev="'.$munkakor.'"';
+}
+$xql.='
+    return element result {
+      attribute id { $munkakor/@id },
+      attribute nev { $munkakor/@nev }
+    }
+let $munkahely := for $orszag in /uzletlanc/uzlethelysegek/*
     for $varos in $orszag/*
         for $kozter in $varos/*
             for $uzlethely in $kozter/*
-                let $cim := concat(name($orszag)," ",name($varos)," ",data($kozter/@name)," ",data($kozter/@jelleg)," ",data($uzlethely/@hazszam))
-                for $ittdolgozik in /uzletlanc/dolgozok/uzlethelyseg
-                    where $ittdolgozik/@id = $uzlethely/@id
-                    ';
+            return element result {
+                attribute id { $uzlethely/@id },
+                attribute cim { concat(name($orszag)," ",name($varos)," ",data($kozter/@name)," ",data($kozter/@jelleg)," ",data($uzlethely/@hazszam))}
+              }
+return <results>{
+for $ittdolgozik in /uzletlanc/dolgozok/uzlethelyseg
+    where not(empty($munkahely[@id=$ittdolgozik/@id]))
+    let $cim := data($munkahely[@id=$ittdolgozik/@id]/@cim)';
         if($uzlethely_cim!=''){
-            $xql .=' and fn:matches(lower-case(text($vezeteknev)),lower-case("'.$uzlethely_cim.'"))';
+            $xql .=' and fn:matches(lower-case($cim),lower-case("'.$uzlethely_cim.'"))';
         }
 $xql.='
                     for $ilyenmunkakorben in $ittdolgozik/munkakor
-                        for $munkakor in /uzletlanc/munkakorok/descendant-or-self::node()/munkakor
-                            where $munkakor/@id =$ilyenmunkakorben/@id';
-if($munkakor!=''){
-    $xql.=' and $munkakor/@nev='.$munkakor;
-}
-$xql.='
-                                for $nem in $ilyenmunkakorben/*/'.($nem=='' ? '*' : $nem).'
-                                    for $dolgozo in  $nem/descendant-or-self::node()/dolgozo';
+                        where not(empty($munka[@id=$ilyenmunkakorben/@id]))
+                            for $nem in $ilyenmunkakorben/*/'.($nem=='' ? '*' : $nem).'
+                                for $dolgozo in  $nem/descendant-or-self::node()/dolgozo';
 if(!empty($nevwhere)){
     $xql.='
-                                        where '.implode(' and ',$nevwhere);
+                                    where '.implode(' and ',$nevwhere);
 }
 if(!empty($orderbys)){
                 $xql.='
-                                        order by '.implode(',',$orderbys);
+                                    order by '.implode(',',$orderbys);
             }
 $xql.='
-                                        return <dolgozo id="{$dolgozo/@id}"><uzlethely>{$cim}</uzlethely><munkakor>{data($munkakor/@nev)}</munkakor><nem>{name($nem)}</nem><vezeteknev>{$dolgozo/vezeteknev/text()}</vezeteknev><keresztnev>{$dolgozo/keresztnev/text()}</keresztnev></dolgozo>';
-
+                                    return <dolgozo id="{$dolgozo/@id}"><uzlethely>{$cim}</uzlethely><munkakor>{data($munka[@id=$ilyenmunkakorben/@id]/@nev)}</munkakor><nem>{name($nem)}</nem><vezeteknev>{$dolgozo/vezeteknev/text()}</vezeteknev><keresztnev>{$dolgozo/keresztnev/text()}</keresztnev></dolgozo>
+}</results>';
 $stmt = $conn->prepareQuery($xql);
 $resultPool = $stmt->execute();
 $results = $resultPool->getAllResults();

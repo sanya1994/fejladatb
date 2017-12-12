@@ -18,11 +18,10 @@ $marka = isset($_GET[$prefix.'marka']) && in_array($_GET[$prefix.'marka'],getAll
 $orszag = isset($_GET[$prefix.'orszag']) && in_array($_GET[$prefix.'orszag'],$fields['termek']['orszag'])? $_GET[$prefix.'orszag'] : '';
 
 $fieldtoVariable = array(
-    'kategoria' => array_keys(getAllTermek()),
-    'tipus' => getAllTermek(),
-    'termeknev' => getAllTermek(),
-    'marka' => getAllMarka(),
-    'vasarlas_szam' => 'biggerint'
+    'kategoria' => 'name($kategoria_adat)',
+    'tipus' => 'name($tipus_adat)',
+    'termeknev' => 'name($termek_adat)',
+    'marka' => '$markak[@id=$markastermek/@id]/elementname/text()'
 );
 $orderbys = array();
 foreach(array('first_order','second_order','third_order') as $order){
@@ -45,7 +44,7 @@ let $vasarlasszam := for $termekuzletben in /uzletlanc/vasarlasok/descendant-or-
       element itemid_ref { $itemid_ref },
       element numberOfitemes { count($termekuzletben) }
     }
-
+return <results>{
 for $kategoria_adat in /uzletlanc/termek_tipusok/'.($tipus!='' ? $tipus : '*').'
     for $tipus_adat in $kategoria_adat/'.($kategoria!='' ? $kategoria : '*').'
         for $termek_adat in $tipus_adat/'.($termeknev!='' ? $termeknev : '*').'
@@ -53,8 +52,14 @@ for $kategoria_adat in /uzletlanc/termek_tipusok/'.($tipus!='' ? $tipus : '*').'
                 where $termek/@id = $termek_adat/@id
                     for $markastermek in $termek/*
                         where not(empty($markak[@id=$markastermek/@id]))
-                        for $tenylegestermek in $markastermek/*
-                            return <termek id="{$tenylegestermek/@id}"><ajanlott_ar>{data($tenylegestermek/@ajanlott_ar)}</ajanlott_ar><marka>{$markak[@id=$markastermek/@id]/elementname/text()}</marka><vasarlas_szam>{$vasarlasszam[itemid_ref/@id = $tenylegestermek/@id]/numberOfitemes/text()}</vasarlas_szam><termeknev>{name($termek_adat)}</termeknev><tipus>{name($tipus_adat)}</tipus><kategoria>{name($kategoria_adat)}</kategoria></termek>';
+                        for $tenylegestermek in $markastermek/*';
+            if(!empty($orderbys)){
+                $xql.='
+                        order by '.implode(',',$orderbys);
+            }
+$xql.='
+                            return <termek id="{$tenylegestermek/@id}"><ajanlott_ar>{data($tenylegestermek/@ajanlott_ar)}</ajanlott_ar><marka>{$markak[@id=$markastermek/@id]/elementname/text()}</marka><vasarlas_szam>{$vasarlasszam[itemid_ref/@id = $tenylegestermek/@id]/numberOfitemes/text()}</vasarlas_szam><termeknev>{name($termek_adat)}</termeknev><tipus>{name($tipus_adat)}</tipus><kategoria>{name($kategoria_adat)}</kategoria></termek>
+}</results>';
 $stmt = $conn->prepareQuery($xql);
 $resultPool = $stmt->execute();
 $results = $resultPool->getAllResults();

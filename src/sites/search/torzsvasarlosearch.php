@@ -53,7 +53,8 @@ if($kozeli_boltok!=''){
     $nevwhere[] = '$countuzlet '.$kozeli_boltok_operator.' '.$kozeli_boltok;
 }
 $xql =
-'for $torzsvasarlok in /uzletlanc/torzsvasarlok/*
+'<results>{
+for $torzsvasarlok in /uzletlanc/torzsvasarlok/*
     for $orszag in $torzsvasarlok/'.($orszag!='' ? $orszag : '*').'
         for $varos in $orszag/'.($varos!='' ? $varos : '*').'
             let $countuzlet := for $uzletorszag in /uzletlanc/uzlethelysegek/*
@@ -74,7 +75,7 @@ if(!empty($orderbys)){
 $xql.='
                 
                     return <torzsvasarlo id="{$torzsvasarlo/@kartyaazonosito}"><vezeteknev>{$torzsvasarlo/vezeteknev/text()}</vezeteknev><keresztnev>{$torzsvasarlo/keresztnev/text()}</keresztnev><nem>{name($nem)}</nem><orszag>{name($orszag)}</orszag><varos>{name($varos)}</varos><kozeli_boltok>{$countuzlet}</kozeli_boltok></torzsvasarlo>
-';
+}</results>';
 $stmt = $conn->prepareQuery($xql);
 $resultPool = $stmt->execute();
 $results = $resultPool->getAllResults();
