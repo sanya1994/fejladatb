@@ -1,5 +1,7 @@
 <?php
 
+echo "Dolgozók száma: doc('db/uzlethelyisegek.xml')//count(uzletlanc/dolgozok/uzlethelyseg/munkakor/heti_munkaora//dolgozo)";
+
 $prefix = 'dolgozo_';
 
 $helyesmunkakor = false;
