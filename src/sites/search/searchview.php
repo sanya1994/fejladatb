@@ -8,6 +8,7 @@ $searchButton = InputCreators::inputcreator('search','search','submit',array('va
 $uzlethelyjs = include 'uzlethelyjs.php';
 $dolgozojs = include 'dolgozojs.php';
 $torzsvasarlojs = include 'torzsvasarlojs.php';
+$termekjs = include 'termekjs.php';
 
 $changejs =
 '$(document).ready(
@@ -26,6 +27,8 @@ $changejs =
                 '.$dolgozojs.'
             } else if($(this).val()=="torzsvasarlo"){
                 '.$torzsvasarlojs.'
+            } else if($(this).val()=="termek"){
+                '.$termekjs.'
             }
         });
 });';

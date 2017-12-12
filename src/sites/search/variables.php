@@ -5,7 +5,7 @@ $types = array(
     'uzlethely' => 'Üzlethely',
     'dolgozo' => 'Dolgozó',
     'torzsvasarlo' => 'Törzsvásárló',
-    'termekek' => 'Termékek'
+    'termek' => 'Termék'
 );
 
 $fields = array(
@@ -32,6 +32,12 @@ $fields = array(
         'orszag' => getAllOrszag(),
         'varos' => getAllOrszagVaros(),
         'kozeli_boltok' => 'biggerint',
+    ),
+    'termek' => array(
+        'kategoria' => array_keys(getAllTermek()),
+        'tipus' => getAllTermek(),
+        'termeknev' => getAllTermek(),
+        'marka' => getAllMarka(),
     )
 );
 
@@ -59,9 +65,17 @@ $name = array(
         'orszag' => 'Ország',
         'varos' => 'Város',
         'kozeli_boltok' => 'Lakóhelyi boltok száma',
+    ),
+    'termek' => array(
+        'kategoria' => 'Kategória',
+        'tipus' => 'Típus',
+        'marka' => 'Márka',
+        'termeknev' => 'Név',
+        'vasarlas_szam' => 'Vásárlások száma',
+        'ajanlott_ar' => 'Ajánlott ár'
     )
 );
-$booloperators = array(
+$compareoperators = array(
     '<' => 'Kisebb, mint',
     '>' => 'Nagyobb, mint',
     '<=' => 'Kisebb egyenlő, mint',

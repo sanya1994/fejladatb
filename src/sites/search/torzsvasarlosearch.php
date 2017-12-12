@@ -21,7 +21,7 @@ $nem = isset($_GET[$prefix.'nem']) && in_array($_GET[$prefix.'nem'],$fields['tor
 $keresztnev = isset($_GET[$prefix.'keresztnev']) ? $_GET[$prefix.'keresztnev'] : '';
 $vezeteknev = isset($_GET[$prefix.'vezeteknev'])? $_GET[$prefix.'vezeteknev'] : '';
 
-$kozeli_boltok_operator = isset($_GET[$prefix.'kozeli_boltok_operator']) && in_array($_GET[$prefix.'kozeli_boltok_operator'], array_keys($booloperators)) ? $_GET[$prefix.'kozeli_boltok_operator'] : '';
+$kozeli_boltok_operator = isset($_GET[$prefix.'kozeli_boltok_operator']) && in_array($_GET[$prefix.'kozeli_boltok_operator'], array_keys($compareoperators)) ? $_GET[$prefix.'kozeli_boltok_operator'] : '';
 $kozeli_boltok = $kozeli_boltok_operator!='' && isset($_GET[$prefix.'kozeli_boltok']) && is_numeric($_GET[$prefix.'kozeli_boltok']) ? $_GET[$prefix.'kozeli_boltok'] : '';
 
 $fieldtoVariable = array(
@@ -56,16 +56,16 @@ $xql =
 'for $torzsvasarlok in /uzletlanc/torzsvasarlok/*
     for $orszag in $torzsvasarlok/'.($orszag!='' ? $orszag : '*').'
         for $varos in $orszag/'.($varos!='' ? $varos : '*').'
+            let $countuzlet := for $uzletorszag in /uzletlanc/uzlethelysegek/*
+                            where name($uzletorszag) = name($orszag)
+                            for $uzletvaros in $uzletorszag/*
+                                where name($uzletvaros) = name($varos)
+                                return count($uzletvaros/descendant-or-self::node()/uzlethely)
             for $nem in $varos/*/'.($nem=='' ? '*' : $nem).'
-                for $torzsvasarlo in $nem/descendant-or-self::node()/torzsvasarlo
-                    let $countuzlet := for $uzletorszag in /uzletlanc/uzlethelysegek/*
-                                    where name($uzletorszag) = name($orszag)
-                                    for $uzletvaros in $uzletorszag/*
-                                        where name($uzletvaros) = name($varos)
-                                        return count($uzletvaros/descendant-or-self::node()/uzlethely)';
+                for $torzsvasarlo in $nem/descendant-or-self::node()/torzsvasarlo';
 if(!empty($nevwhere)){
     $xql.='
-                                        where '.implode(' and ',$nevwhere);
+                    where '.implode(' and ',$nevwhere);
 }
 if(!empty($orderbys)){
                 $xql.='

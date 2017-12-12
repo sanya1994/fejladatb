@@ -19,9 +19,9 @@ $varos = $helyesvaros ? $_GET[$prefix.'varos'] : '';
 $kozternev = isset($_GET[$prefix.'kozternev']) ? $_GET[$prefix.'kozternev'] : '';
 $kozterjelleg = isset($_GET[$prefix.'kozterjelleg']) ? $_GET[$prefix.'kozterjelleg'] : '';
 $hazszam = isset($_GET[$prefix.'hazszam']) ? $_GET[$prefix.'hazszam'] : '';
-$vasarlasok_szama_operator = isset($_GET[$prefix.'vasarlasok_szama_operator']) && in_array($_GET[$prefix.'vasarlasok_szama_operator'], array_keys($booloperators)) ? $_GET[$prefix.'vasarlasok_szama_operator'] : '';
+$vasarlasok_szama_operator = isset($_GET[$prefix.'vasarlasok_szama_operator']) && in_array($_GET[$prefix.'vasarlasok_szama_operator'], array_keys($compareoperators)) ? $_GET[$prefix.'vasarlasok_szama_operator'] : '';
 $vasarlasok_szama = $vasarlasok_szama_operator!='' && isset($_GET[$prefix.'vasarlasok_szama']) && is_numeric($_GET[$prefix.'vasarlasok_szama']) ? $_GET[$prefix.'vasarlasok_szama'] : '';
-$dolgozok_szama_operator = isset($_GET[$prefix.'dolgozok_szama_operator']) && in_array($_GET[$prefix.'dolgozok_szama_operator'], array_keys($booloperators)) ? $_GET[$prefix.'dolgozok_szama_operator'] : '';
+$dolgozok_szama_operator = isset($_GET[$prefix.'dolgozok_szama_operator']) && in_array($_GET[$prefix.'dolgozok_szama_operator'], array_keys($compareoperators)) ? $_GET[$prefix.'dolgozok_szama_operator'] : '';
 $dolgozok_szama = $dolgozok_szama_operator!='' && isset($_GET[$prefix.'dolgozok_szama']) && is_numeric($_GET[$prefix.'dolgozok_szama']) ? $_GET[$prefix.'dolgozok_szama'] : '';
 
 $fieldtoVariable = array(

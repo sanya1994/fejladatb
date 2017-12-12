@@ -14,7 +14,7 @@ foreach($fields['dolgozo'] as $fieldname => $fieldvalue){
         $fieldSelect = InputCreators::selectcreator('dolgozo_'.$fieldname, 'dolgozo_'.$fieldname, array_combine($mindenmunkakor, $mindenmunkakor));
         $dolgozojs .= '<div class="BlockFiveSixth">'.$fieldSelect.'</div>';
     } else if($fieldvalue=='biggerint'){
-        $fieldSelect = InputCreators::selectcreator('dolgozo_'.$fieldname.'_operator', 'dolgozo_'.$fieldname.'_operator', $booloperators);
+        $fieldSelect = InputCreators::selectcreator('dolgozo_'.$fieldname.'_operator', 'dolgozo_'.$fieldname.'_operator', $compareoperators);
         $fieldInput = InputCreators::inputcreator('dolgozo_'.$fieldname, 'dolgozo_'.$fieldname, 'number');
         $dolgozojs .= '<div class="BlockSixth">'.$fieldSelect.'</div>';
         $dolgozojs .= '<div class="BlockTwoThird">'.$fieldInput.'</div>';
