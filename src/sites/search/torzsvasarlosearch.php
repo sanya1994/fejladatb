@@ -73,7 +73,7 @@ if(!empty($orderbys)){
             }
 $xql.='
                 
-                return <torzsvasarlo id="{$torzsvasarlo/@kartyaazonosito}"><vezeteknev>{$torzsvasarlo/vezeteknev/text()}</vezeteknev><keresztnev>{$torzsvasarlo/keresztnev/text()}</keresztnev><nem>{name($nem)}</nem><orszag>{name($orszag)}</orszag><varos>{name($varos)}</varos><kozeli_boltok>{$countuzlet}</kozeli_boltok></torzsvasarlo>
+                    return <torzsvasarlo id="{$torzsvasarlo/@kartyaazonosito}"><vezeteknev>{$torzsvasarlo/vezeteknev/text()}</vezeteknev><keresztnev>{$torzsvasarlo/keresztnev/text()}</keresztnev><nem>{name($nem)}</nem><orszag>{name($orszag)}</orszag><varos>{name($varos)}</varos><kozeli_boltok>{$countuzlet}</kozeli_boltok></torzsvasarlo>
 ';
 $stmt = $conn->prepareQuery($xql);
 $resultPool = $stmt->execute();
