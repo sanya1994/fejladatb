@@ -90,7 +90,6 @@ $xql.='
 $xql.='
                         return <uzlethely id="{$uzlethely/@id}"><orszag>{$orszagname}</orszag><varos>{$varosname}</varos><kozternev>{data($kozter/@name)}</kozternev><kozterjelleg>{data($kozter/@jelleg)}</kozterjelleg><hazszam>{data($uzlethely/@hazszam)}</hazszam><vasarlasok_szama>{$vasarlasokszama}</vasarlasok_szama><dolgozok_szama>{$dolgozokszama}</dolgozok_szama></uzlethely>
 }</results>';
-var_dump($xql);
 $stmt = $conn->prepareQuery($xql);
 $resultPool = $stmt->execute();
 $results = $resultPool->getAllResults();
