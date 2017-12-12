@@ -4,6 +4,8 @@ include_once $site_dir.'/generatexml/functions.php';
 $types = array(
     'uzlethely' => 'Üzlethely',
     'dolgozo' => 'Dolgozó',
+    'torzsvasarlo' => 'Törzsvásárló',
+    'termekek' => 'Termékek'
 );
 
 $fields = array(
@@ -22,6 +24,14 @@ $fields = array(
         'uzlethely' => 'string',
         'nem' => array('férfi','nő'),
         'munkakor' => getAllMunkakor()
+    ),
+    'torzsvasarlo' => array(
+        'vezeteknev' => 'string',
+        'keresztnev' => 'string',
+        'nem' => array('férfi','nő'),
+        'orszag' => getAllOrszag(),
+        'varos' => getAllOrszagVaros(),
+        'kozeli_boltok' => 'biggerint',
     )
 );
 
@@ -41,9 +51,16 @@ $name = array(
         'uzlethely' => 'Munkahely címe',
         'nem' => 'Nem',
         'munkakor' => 'Munkakör'
+    ),
+    'torzsvasarlo' => array(
+        'vezeteknev' => 'Vezetéknév',
+        'keresztnev' => 'Keresztnév',
+        'nem' => 'Nem',
+        'orszag' => 'Ország',
+        'varos' => 'Város',
+        'kozeli_boltok' => 'Lakóhelyi boltok száma',
     )
 );
-
 $booloperators = array(
     '<' => 'Kisebb, mint',
     '>' => 'Nagyobb, mint',
