@@ -273,7 +273,7 @@ unset($markas);
 
 
 $termekek = array();
-$id = 0;
+$termekid = 0;
 $node_termekek = $xml->addChild('termekek');
 foreach(array_keys($termektipusok) as $id){
     $node_tipus = $node_termekek->addChild('tipus');
@@ -285,11 +285,11 @@ foreach(array_keys($termektipusok) as $id){
         $node_marka = $node_tipus->addChild('marka');
         $node_marka->addAttribute('id', array_search($actmarka, $markak));
         $node_termek  = $node_marka->addChild('termek');
-        $node_termek->addAttribute('id',++$id);
+        $node_termek->addAttribute('id',++$termekid);
         $ar = rand(500,12000);
         $node_termek->addAttribute('ajanlott_ar',$ar*1.1);
         $node_termek->addAttribute('beszerzesi_ar',$ar);
-        $termekek[$id] = $ar*1.1;
+        $termekek[$termekid] = $ar*1.1;
     }
 }
 

@@ -251,8 +251,8 @@ function getAllTermek(){
                 'kalács'
             ),
             'tejtermékek' => array(
-                '2_8tej',
-                '1_5tej',
+                'tej_2_8',
+                'tej_1_5',
                 'gyümölcsös_joghurt',
                 'natúr_joghurt'
             ),
@@ -278,7 +278,7 @@ function getAllTermek(){
         ),
         'írószerek' => array(
             'papírok' => array(
-                'A4-es_papír',
+                'A4_es_papír',
                 'toll',
                 'ceruza'
             )
