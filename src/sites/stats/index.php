@@ -5,6 +5,11 @@ $varosuzletszamxql =
 '<results>{for $varos in /uzletlanc/uzlethelysegek/*/*
     return <result name="{name($varos)}" count="{count($varos/descendant-or-self::node()/uzlethely)}"/>}</results>';
 
+$torzsvasarloxql= 'count(/uzletlanc/descendant-or-self::node()/torzsvasarlo)';
+$torzsvasarlokedvezmenyxql =
+'<results>{for $kedvezmenytipus in /uzletlanc/torzsvasarlok/kedvezmeny_tipusa
+    return <result name="{data($kedvezmenytipus/@tipus)}" count="{count($kedvezmenytipus/descendant-or-self::node()/torzsvasarlo)}"/>}</results>';
+
 $avgfizu =
 '<results>{for $munkakor in /uzletlanc/munkakorok/*/*
     for $dolgozo_munkakor in /uzletlanc/dolgozok/uzlethelyseg/munkakor
@@ -44,7 +49,7 @@ $varostable.='</tbody></table>';
 $stmt = $conn->prepareQuery($teljesavg);
 $resultPool = $stmt->execute();
 $avg = $resultPool->getAllResults();
-$avg=$count[0];
+$avg=$avg[0];
 
 $stmt = $conn->prepareQuery($kategoriankentavg);
 $resultPool = $stmt->execute();
@@ -74,10 +79,27 @@ foreach($processedresult->children() as $result){
 
 $munkatable.='</tbody></table>';
 
+$stmt = $conn->prepareQuery($torzsvasarloxql);
+$resultPool = $stmt->execute();
+$tcount = $resultPool->getAllResults();
+$tcount=$tcount[0];
+
+$stmt = $conn->prepareQuery($torzsvasarlokedvezmenyxql);
+$resultPool = $stmt->execute();
+$results = $resultPool->getAllResults();
+$processedresult= simplexml_load_string($results[0]);
+$ktable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Kedvezménytípus</th><th>Darab</th></tr></thead><tbody>';
+foreach($processedresult->children() as $result){
+    $ktable.='<tr>';
+    $ktable.='<td>'.$result->attributes()->name.'</td>';
+    $ktable.='<td>'.$result->attributes()->count.'</td>';
+    $ktable.='</tr>';
+}
+
 $content = <<<ALMA
 <div class="MyPage">
     <div class="PageTitle">Statisztika</div>
-    <div class="BlocFull">Az üzletláncnak $count üzlete van. Városok szerint így néz ki csoportosítva</div>
+    <div class="BlocFull">Az üzletláncnak $count üzlete van. Városok szerint így néz ki csoportosítva az üzletek</div>
     <div class="BlockMiniSpacer"></div>
     <div class="BlocFull">$varostable</div>
     <div class="BlockMiniSpacer"></div>
@@ -86,6 +108,10 @@ $content = <<<ALMA
     <div class="BlocFull">$kategoriatable</div>
     <div class="BlockMiniSpacer"></div>
     <div class="BlocFull">$munkatable</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">Az üzletláncnak $tcount törzsvásárlója van. Kedvezménytípusok szerint így néz ki csoportosítva a törzsvásárlók</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">$ktable</div>
     <div class="BlockMiniSpacer"></div>
     <div class="BlockSpacer"></div>
     <div class="BlockEnd"></div>
