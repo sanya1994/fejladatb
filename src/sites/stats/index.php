@@ -119,7 +119,7 @@ foreach($processedresult->children() as $result){
     $ktable.='<td>'.$result->attributes()->count.'</td>';
     $ktable.='</tr>';
 }
-
+$ktable.='</tbody></table>';
 $stmt = $conn->prepareQuery($torzsvasarloxql);
 $resultPool = $stmt->execute();
 $tcount = $resultPool->getAllResults();
@@ -136,6 +136,7 @@ foreach($processedresult->children() as $result){
     $vvvtable.='<td>'.$result->attributes()->db.'</td>';
     $vvvtable.='</tr>';
 }
+$vvvtable.='</tbody></table>';
 
 $stmt = $conn->prepareQuery($vasarlasok_ertekenek_osszege_evenkent);
 $resultPool = $stmt->execute();
@@ -148,6 +149,7 @@ foreach($processedresult->children() as $result){
     $vtable.='<td>'.$result->attributes()->osszeg.'</td>';
     $vtable.='</tr>';
 }
+$vtable.='</tbody></table>';
 
 $stmt = $conn->prepareQuery($vasarlasok_ertekenek_osszege_uzletenkent);
 $resultPool = $stmt->execute();
@@ -160,7 +162,7 @@ foreach($processedresult->children() as $result){
     $vvtable.='<td>'.$result->attributes()->osszeg.'</td>';
     $vvtable.='</tr>';
 }
-
+$vvtable.='</tbody></table>';
 
 $content = <<<ALMA
 <div class="MyPage">
