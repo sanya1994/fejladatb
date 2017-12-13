@@ -23,8 +23,6 @@ $content = '';
 
 include_once $libs.'/basic_functions.php';
 include_once $libs.'/input_creator.php';
-include_once $libs.'/mytable.php';
-include_once $libs.'/data.php';
 include_once $libs.'/myWords.php';
 include_once $libs.'/php-eXist-db-Client-master/lib/Client.class.php';
 include_once $libs.'/php-eXist-db-Client-master/lib/Query.class.php';

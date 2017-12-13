@@ -237,7 +237,7 @@ foreach($dolgozos as $dolgozo){
     }
     unset($voltmar);
     
-    $node_dolgozo->addChild('fizetes',$fizetesek[$munkakorok[$dolgozo['munkakor']]]*rand(80,120/100));
+    $node_dolgozo->addChild('fizetes',$fizetesek[$munkakorok[$dolgozo['munkakor']]]*rand(80,120)/100);
 }
 
 $node_termek_tipusok = $xml->addChild('termek_tipusok');

@@ -1,0 +1,93 @@
+<?php
+
+$uzletekszamaxql= 'count(/uzletlanc/descendant-or-self::node()/uzlethely)';
+$varosuzletszamxql =
+'<results>{for $varos in /uzletlanc/uzlethelysegek/*/*
+    return <result name="{name($varos)}" count="{count($varos/descendant-or-self::node()/uzlethely)}"/>}</results>';
+
+$avgfizu =
+'<results>{for $munkakor in /uzletlanc/munkakorok/*/*
+    for $dolgozo_munkakor in /uzletlanc/dolgozok/uzlethelyseg/munkakor
+        where $dolgozo_munkakor/@id = $munkakor/@id
+        group by $a := $munkakor/@id
+        return <result name="{$munkakor/@nev}" avg="{format-number(avg($dolgozo_munkakor/descendant-or-self::node()/fizetes/text()),\'#,##0.00\')}"></result>}</results>';
+
+$kategoriankentavg =
+'<results>{for $munkakorkat in /uzletlanc/munkakorok/*
+    for $munkakor in $munkakorkat/*
+    for $dolgozo_munkakor in /uzletlanc/dolgozok/uzlethelyseg/munkakor
+        where $dolgozo_munkakor/@id = $munkakor/@id
+        group by $a := $munkakorkat/@nev
+        return <result name="{$munkakorkat/@nev}" avg="{format-number(avg($dolgozo_munkakor/descendant-or-self::node()/fizetes/text()),\'#,##0.00\')}"></result>}</results>';
+
+$teljesavg ='format-number(avg(/uzletlanc/descendant-or-self::node()/dolgozo/fizetes/text()),"#,##0.00")';
+
+$stmt = $conn->prepareQuery($uzletekszamaxql);
+$resultPool = $stmt->execute();
+$count = $resultPool->getAllResults();
+$count=$count[0];
+
+$stmt = $conn->prepareQuery($varosuzletszamxql);
+$resultPool = $stmt->execute();
+$results = $resultPool->getAllResults();
+$processedresult= simplexml_load_string($results[0]);
+$varostable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Város</th><th>Darab</th></tr></thead><tbody>';
+foreach($processedresult->children() as $result){
+    $varostable.='<tr>';
+    $varostable.='<td>'.$result->attributes()->name.'</td>';
+    $varostable.='<td>'.$result->attributes()->count.'</td>';
+    $varostable.='</tr>';
+}
+
+$varostable.='</tbody></table>';
+
+$stmt = $conn->prepareQuery($teljesavg);
+$resultPool = $stmt->execute();
+$avg = $resultPool->getAllResults();
+$avg=$count[0];
+
+$stmt = $conn->prepareQuery($kategoriankentavg);
+$resultPool = $stmt->execute();
+$results = $resultPool->getAllResults();
+$processedresult= simplexml_load_string($results[0]);
+$kategoriatable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Kategória</th><th>Átlag</th></tr></thead><tbody>';
+foreach($processedresult->children() as $result){
+    $kategoriatable.='<tr>';
+    $kategoriatable.='<td>'.$result->attributes()->name.'</td>';
+    $kategoriatable.='<td>'.$result->attributes()->avg.'</td>';
+    $kategoriatable.='</tr>';
+}
+
+$kategoriatable.='</tbody></table>';
+
+$stmt = $conn->prepareQuery($avgfizu);
+$resultPool = $stmt->execute();
+$results = $resultPool->getAllResults();
+$processedresult= simplexml_load_string($results[0]);
+$munkatable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Munkahely</th><th>Átlag</th></tr></thead><tbody>';
+foreach($processedresult->children() as $result){
+    $munkatable.='<tr>';
+    $munkatable.='<td>'.$result->attributes()->name.'</td>';
+    $munkatable.='<td>'.$result->attributes()->avg.'</td>';
+    $munkatable.='</tr>';
+}
+
+$munkatable.='</tbody></table>';
+
+$content = <<<ALMA
+<div class="MyPage">
+    <div class="PageTitle">Statisztika</div>
+    <div class="BlocFull">Az üzletláncnak $count üzlete van. Városok szerint így néz ki csoportosítva</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">$varostable</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">Az üzletláncnak $avg átlagos fizetése van. Munakörök és munkák szerint így van csoportosítva</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">$kategoriatable</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">$munkatable</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlockSpacer"></div>
+    <div class="BlockEnd"></div>
+</div>
+ALMA;

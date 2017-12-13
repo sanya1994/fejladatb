@@ -1,5 +1,4 @@
 <?php
-echo "Üzletek száma doc('db/uzlethelyisegek.xml')//count(uzletlanc//uzlethelyseg).";
 $uzlethelyjs='';
 foreach($fields['uzlethely'] as $fieldname => $fieldvalue){
     $fieldLabel = '<label for="uzlethely_'.$fieldname.'">'.(isset($name['uzlethely'][$fieldname]) ? $name['uzlethely'][$fieldname] : $fieldname).':&nbsp;</label>';
