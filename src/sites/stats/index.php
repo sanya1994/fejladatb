@@ -120,6 +120,48 @@ foreach($processedresult->children() as $result){
     $ktable.='</tr>';
 }
 
+$stmt = $conn->prepareQuery($torzsvasarloxql);
+$resultPool = $stmt->execute();
+$tcount = $resultPool->getAllResults();
+$tcount=$tcount[0];
+
+$stmt = $conn->prepareQuery($vasarlasok_szama_evenkent);
+$resultPool = $stmt->execute();
+$results = $resultPool->getAllResults();
+$processedresult= simplexml_load_string($results[0]);
+$vvvtable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Kedvezménytípus</th><th>Darab</th></tr></thead><tbody>';
+foreach($processedresult->children() as $result){
+    $vvvtable.='<tr>';
+    $vvvtable.='<td>'.$result->attributes()->ev.'</td>';
+    $vvvtable.='<td>'.$result->attributes()->db.'</td>';
+    $vvvtable.='</tr>';
+}
+
+$stmt = $conn->prepareQuery($vasarlasok_ertekenek_osszege_evenkent);
+$resultPool = $stmt->execute();
+$results = $resultPool->getAllResults();
+$processedresult= simplexml_load_string($results[0]);
+$vtable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Kedvezménytípus</th><th>Darab</th></tr></thead><tbody>';
+foreach($processedresult->children() as $result){
+    $vtable.='<tr>';
+    $vtable.='<td>'.$result->attributes()->ev.'</td>';
+    $vtable.='<td>'.$result->attributes()->osszeg.'</td>';
+    $vtable.='</tr>';
+}
+
+$stmt = $conn->prepareQuery($vasarlasok_ertekenek_osszege_uzletenkent);
+$resultPool = $stmt->execute();
+$results = $resultPool->getAllResults();
+$processedresult= simplexml_load_string($results[0]);
+$vvtable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Kedvezménytípus</th><th>Darab</th></tr></thead><tbody>';
+foreach($processedresult->children() as $result){
+    $vvtable.='<tr>';
+    $vvtable.='<td>'.$result->attributes()->uzlet.'</td>';
+    $vvtable.='<td>'.$result->attributes()->osszeg.'</td>';
+    $vvtable.='</tr>';
+}
+
+
 $content = <<<ALMA
 <div class="MyPage">
     <div class="PageTitle">Statisztika</div>
@@ -136,6 +178,14 @@ $content = <<<ALMA
     <div class="BlocFull">Az üzletláncnak $tcount törzsvásárlója van. Kedvezménytípusok szerint így néz ki csoportosítva a törzsvásárlók</div>
     <div class="BlockMiniSpacer"></div>
     <div class="BlocFull">$ktable</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">Vársárlások adatai</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">$vtable</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">$vvtable</div>
+    <div class="BlockMiniSpacer"></div>
+    <div class="BlocFull">$vvvtable</div>
     <div class="BlockMiniSpacer"></div>
     <div class="BlockSpacer"></div>
     <div class="BlockEnd"></div>
