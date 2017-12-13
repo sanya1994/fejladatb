@@ -27,6 +27,24 @@ $kategoriankentavg =
 
 $teljesavg ='format-number(avg(/uzletlanc/descendant-or-self::node()/dolgozo/fizetes/text()),"#,##0.00")';
 
+$vasarlasok_szama_evenkent = 
+'<vasarlarlasok>{for $fizetendo in //vasarlasok//vasarlas//fizetendo
+group by $vasarlas := $fizetendo/../../@ev
+order by count($fizetendo) descending
+return <vasarlas ev = "{$vasarlas}" db = "{count($fizetendo)}" />}</vasarlarlasok>';
+
+$vasarlasok_ertekenek_osszege_evenkent = 
+'<vasarlarlasok>{for $fizetendo in //vasarlasok//vasarlas//fizetendo
+group by $vasarlas := $fizetendo/../../@ev
+order by count($fizetendo) descending
+return <vasarlas ev = "{$vasarlas}" osszeg = "{sum($fizetendo)}" />}</vasarlarlasok>';
+
+$vasarlasok_ertekenek_osszege_uzletenkent =
+'<vasarlarlasok>{for $fizetendo in //vasarlasok//vasarlas//fizetendo
+group by $uzlet := $fizetendo/../../../../@id
+order by number(sum($fizetendo)) descending
+return <vasarlas uzlet = "{$uzlet}" osszeg = "{sum($fizetendo)}" />>}</vasarlarlasok>';
+
 $stmt = $conn->prepareQuery($uzletekszamaxql);
 $resultPool = $stmt->execute();
 $count = $resultPool->getAllResults();
