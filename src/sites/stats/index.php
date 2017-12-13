@@ -10,6 +10,12 @@ $torzsvasarlokedvezmenyxql =
 '<results>{for $kedvezmenytipus in /uzletlanc/torzsvasarlok/kedvezmeny_tipusa
     return <result name="{data($kedvezmenytipus/@tipus)}" count="{count($kedvezmenytipus/descendant-or-self::node()/torzsvasarlo)}"/>}</results>';
 
+$dolgozok_szama_munkakoronkent =
+'<munkakorok>{for $munkakor in //uzletlanc/dolgozok/uzlethelyseg/munkakor
+group by $d:= $munkakor/@id
+order by count($munkakor//fizetes) descending
+return <munkakor nev="{$d}" dolgozok_szama="{count($munkakor//fizetes)}"/>}"></munkakorok>';
+   
 $avgfizu =
 '<results>{for $munkakor in /uzletlanc/munkakorok/*/*
     for $dolgozo_munkakor in /uzletlanc/dolgozok/uzlethelyseg/munkakor
@@ -43,7 +49,7 @@ $vasarlasok_ertekenek_osszege_uzletenkent =
 '<vasarlarlasok>{for $fizetendo in //vasarlasok//vasarlas//fizetendo
 group by $uzlet := $fizetendo/../../../../@id
 order by number(sum($fizetendo)) descending
-return <vasarlas uzlet = "{$uzlet}" osszeg = "{sum($fizetendo)}" />>}</vasarlarlasok>';
+return <vasarlas uzlet = "{$uzlet}" osszeg = "{sum($fizetendo)}" />}</vasarlarlasok>';
 
 $stmt = $conn->prepareQuery($uzletekszamaxql);
 $resultPool = $stmt->execute();
