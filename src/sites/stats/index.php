@@ -142,7 +142,7 @@ $stmt = $conn->prepareQuery($vasarlasok_ertekenek_osszege_evenkent);
 $resultPool = $stmt->execute();
 $results = $resultPool->getAllResults();
 $processedresult= simplexml_load_string($results[0]);
-$vtable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Kedvezménytípus</th><th>Darab</th></tr></thead><tbody>';
+$vtable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Kedvezménytípus</th><th>Összeg</th></tr></thead><tbody>';
 foreach($processedresult->children() as $result){
     $vtable.='<tr>';
     $vtable.='<td>'.$result->attributes()->ev.'</td>';
@@ -155,7 +155,7 @@ $stmt = $conn->prepareQuery($vasarlasok_ertekenek_osszege_uzletenkent);
 $resultPool = $stmt->execute();
 $results = $resultPool->getAllResults();
 $processedresult= simplexml_load_string($results[0]);
-$vvtable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Kedvezménytípus</th><th>Darab</th></tr></thead><tbody>';
+$vvtable = '<table class="MyTable" width="100%"><thead><tr><th width="50%">Kedvezménytípus</th><th>Összeg</th></tr></thead><tbody>';
 foreach($processedresult->children() as $result){
     $vvtable.='<tr>';
     $vvtable.='<td>'.$result->attributes()->uzlet.'</td>';
